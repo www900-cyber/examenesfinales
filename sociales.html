@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Examen de Ciencias Sociales - 5º Grado</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+        }
+        h1, h2, h3, .font-fun {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+        .custom-card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <!-- HEADER / BARRA DE NAVEGACIÓN -->
+    <header class="bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 text-white shadow-md sticky top-0 z-50 no-print">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-3">
+                <div class="bg-white p-2 rounded-2xl shadow-inner text-amber-500">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C20.832 18.477 19.247 18 17.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-wide">Desafío de Historia de Colombia</h1>
+                    <p class="text-xs text-amber-100 font-medium">Examen Interactivo 5º Grado</p>
+                </div>
+            </div>
+
+            <!-- Marcador de Puntuación -->
+            <div class="flex items-center gap-4 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30">
+                <div class="flex items-center gap-1.5" title="Puntos acumulados">
+                    <span class="text-2xl">⭐</span>
+                    <span id="score-display" class="font-bold text-lg">0 / 50</span>
+                </div>
+                <div class="h-6 w-px bg-white/40"></div>
+                <div class="flex items-center gap-1.5" title="Pregunta actual">
+                    <span class="text-2xl">📝</span>
+                    <span id="question-num-display" class="font-bold text-lg">1 / 50</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de progreso -->
+        <div class="w-full bg-black/10 h-2.5">
+            <div id="progress-bar" class="bg-emerald-400 h-2.5 transition-all duration-300 rounded-r-full" style="width: 2%"></div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-4xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- FILTROS Y NAVEGACIÓN DE TEMAS -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm mb-6 border border-slate-200 no-print flex flex-col md:flex-row gap-3 justify-between items-center">
+            <div class="w-full md:w-auto flex items-center gap-2">
+                <label for="topic-select" class="text-xs font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap">Filtrar Tema:</label>
+                <select id="topic-select" onchange="filterTopic(this.value)" class="w-full md:w-auto bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-xl p-2.5 focus:ring-amber-500 focus:border-amber-500 font-medium outline-none">
+                    <option value="all">🌟 Todos los temas (50 preguntas)</option>
+                    <option value="Época Republicana">1. Época Republicana</option>
+                    <option value="Congreso de Angostura">2. Congreso de Angostura</option>
+                    <option value="Congreso de Cúcuta">3. Congreso de Cúcuta</option>
+                    <option value="Ecuador en la Gran Colombia">4. Ecuador en la Gran Colombia</option>
+                    <option value="Gobierno de José Hilario López">5. Gobierno de José Hilario López</option>
+                    <option value="Reformas Liberales">6. Reformas Liberales del S. XIX</option>
+                    <option value="Grandes Reformas Siglo XIX">7. Grandes Reformas 2ª Mitad S. XIX</option>
+                    <option value="Rafael Núñez y la Regeneración">8. Rafael Núñez y la Regeneración</option>
+                    <option value="Colombia 1ª Mitad S. XX">9. Colombia en la 1ª Mitad del S. XX</option>
+                    <option value="Periodo de La Violencia">10. Periodo de La Violencia</option>
+                    <option value="Hechos Políticos 2ª Mitad S. XX">11. Hechos Políticos 2ª Mitad S. XX</option>
+                </select>
+            </div>
+            
+            <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+                <button onclick="prevQuestion()" id="btn-prev" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1">
+                    ⬅️ Anterior
+                </button>
+                <button onclick="nextQuestion()" id="btn-next" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl text-sm transition-all flex items-center gap-1">
+                    Siguiente ➡️
+                </button>
+            </div>
+        </div>
+
+        <!-- TARJETA DE LA PREGUNTA -->
+        <div id="quiz-container" class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200 custom-card-shadow transition-all">
+            
+            <!-- Encabezado del Tema -->
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                <span id="badge-topic" class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                    Cargando tema...
+                </span>
+                <span id="question-index-tag" class="text-xs font-bold text-slate-400">
+                    Pregunta 1 de 50
+                </span>
+            </div>
+
+            <!-- Sección "LEE Y APRENDE" -->
+            <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 md:p-5 mb-6 flex flex-col md:flex-row gap-4 items-center">
+                <div id="svg-illustration" class="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 flex items-center justify-center bg-white rounded-2xl shadow-sm p-2 border border-amber-100">
+                    <!-- SVG dinámico aquí -->
+                </div>
+                <div class="flex-1 text-slate-700">
+                    <div class="flex items-center gap-2 text-amber-700 font-bold text-sm uppercase tracking-wide mb-1">
+                        <span>💡</span>
+                        <span>Lee y aprende antes de responder:</span>
+                    </div>
+                    <p id="learning-text" class="text-sm md:text-base leading-relaxed font-normal">
+                        Cargando texto informativo...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Enunciado de la Pregunta -->
+            <h2 id="question-title" class="text-lg md:text-xl font-bold text-slate-900 mb-6">
+                Cargando pregunta...
+            </h2>
+
+            <!-- Opciones de Respuesta -->
+            <div id="options-container" class="space-y-3 mb-6">
+                <!-- Se generan dinámicamente -->
+            </div>
+
+            <!-- Caja de Explicación / Retroalimentación -->
+            <div id="feedback-box" class="hidden rounded-2xl p-4 md:p-5 border text-sm leading-relaxed mb-4">
+                <!-- Se llena con JS -->
+            </div>
+
+        </div>
+
+        <!-- PANTALLA DE RESULTADOS (INICIALMENTE OCULTA) -->
+        <div id="results-screen" class="hidden bg-white rounded-3xl p-8 border border-slate-200 custom-card-shadow text-center">
+            <div class="inline-block p-4 bg-amber-100 text-amber-500 rounded-full mb-4">
+                <span class="text-5xl">🏆</span>
+            </div>
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">¡Examen Completado!</h2>
+            <p class="text-slate-600 mb-6">Has demostrado un gran interés por la historia de Colombia.</p>
+            
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 max-w-sm mx-auto mb-6">
+                <div class="text-slate-500 text-sm font-semibold mb-1">Puntuación Final</div>
+                <div id="final-score" class="text-4xl font-extrabold text-amber-500">0 / 50</div>
+                <div id="score-percentage" class="text-xs text-slate-500 font-bold mt-1">0% de respuestas correctas</div>
+            </div>
+
+            <div id="result-message" class="text-lg font-medium text-slate-700 mb-8 max-w-lg mx-auto">
+                <!-- Mensaje motivacional dinámico -->
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 no-print">
+                <button onclick="restartQuiz()" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-all shadow-md">
+                    🔄 Intentar de nuevo
+                </button>
+                <button onclick="window.print()" class="px-6 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl transition-all shadow-md flex items-center gap-2">
+                    🖨️ Imprimir Resumen
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 no-print">
+        <p>Material Educativo de Ciencias Sociales • 5.º Grado de Primaria • Colombia</p>
+    </footer>
+
+    <!-- JAVASCRIPT DEL EXAMEN -->
+    <script>
+        // BASE DE DATOS DE 50 PREGUNTAS (DISTRIBUIDAS EN LOS 11 TEMAS SOLICITADOS)
+        const questionsData = [
+            // ----------------------------------------------------
+            // TEMA 1: ÉPOCA REPUBLICANA (Questions 1 - 5)
+            // ----------------------------------------------------
+            {
+                id: 1,
+                topic: "Época Republicana",
+                svgType: "flag",
+                learningText: "La Época Republicana en Colombia comenzó en 1819 tras independizarnos de España. Durante este tiempo, nuestro país dejó de tener un rey español y comenzó a gobernarse por medio de leyes y un presidente elegido por la gente.",
+                question: "¿Qué cambio principal marcó el inicio de la Época Republicana en Colombia?",
+                type: "multiple",
+                options: [
+                    "A. España volvió a nombrar a un Virrey para mandar.",
+                    "B. El país comenzó a gobernarse sin reyes, usando leyes y un Presidente.",
+                    "C. Colombia decidió volver a ser una colonia del rey de Francia.",
+                    "D. Se eliminaron todas las leyes y los ciudadanos vivían sin reglas."
+                ],
+                correct: 1,
+                explanation: "¡Correcto! La Época Republicana significa que el país dejó de ser gobernado por Reyes y empezó a estructurarse mediante leyes (Constitución) y autoridades elegidas."
+            },
+            {
+                id: 2,
+                topic: "Época Republicana",
+                svgType: "constitution",
+                learningText: "Para organizar la nueva república, los patriotas escribieron una Constitución. La Constitución es el libro de reglas más importante donde se escriben los derechos de la gente y la forma de gobernar.",
+                question: "¿Qué es la Constitución Política creada durante la república?",
+                type: "multiple",
+                options: [
+                    "A. Un mapa antiguo para buscar tesoros piratas.",
+                    "B. El libro supremo con las leyes y derechos fundamentales del país.",
+                    "C. Un libro con cuentos e historias fantásticas.",
+                    "D. Una carta enviada al rey de España para pedirle perdón."
+                ],
+                correct: 1,
+                explanation: "¡Muy bien! La Constitución contiene las normas supremas para organizar el Estado y defender los derechos de todos los ciudadanos."
+            },
+            {
+                id: 3,
+                topic: "Época Republicana",
+                svgType: "people",
+                learningText: "En los primeros años republicanos, no todas las personas podían votar. Solo votaban los hombres adultos que tenían dinero o propiedades y que supieran leer y escribir.",
+                question: "En los inicios de la Época Republicana, ¿todas las personas (mujeres y niños incluidos) podían votar?",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 1,
+                explanation: "¡Es Falso! En esa época el voto era restringido. Las mujeres no tenían derecho al voto y solo votaban los hombres con ciertas propiedades y educación."
+            },
+            {
+                id: 4,
+                topic: "Época Republicana",
+                svgType: "scale",
+                learningText: "En la república se separó el poder en tres ramas principales para evitar que una sola persona tuviera todo el control: la Rama Ejecutiva (Presidente), la Legislativa (Congreso) y la Judicial (Jueces).",
+                question: "¿Por qué es importante separar el poder en tres ramas en una república?",
+                type: "multiple",
+                options: [
+                    "A. Para evitar que una sola persona tenga todo el control absoluto.",
+                    "B. Para que el Presidente trabaje como juez y como policía al tiempo.",
+                    "C. Para cobrar triple impuesto a las personas más pobres.",
+                    "D. Para imitar a los reyes antiguos de Europa."
+                ],
+                correct: 0,
+                explanation: "¡Excelente! La separación de poderes asegura que haya equilibrio y que ninguna persona ejerza un poder dictatorial."
+            },
+            {
+                id: 5,
+                topic: "Época Republicana",
+                svgType: "swords",
+                learningText: "Aunque ya éramos independientes, durante la época republicana surgieron diferentes opiniones sobre cómo organizar el país, lo que provocó desacuerdos y guerras civiles entre colombianos.",
+                question: "¿La Época Republicana estuvo libre de conflictos y diferencias políticas?",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 1,
+                explanation: "¡Falso! Existieron intensos debates sobre el centralismo y federalismo que provocaron diversas guerras civiles en el siglo XIX."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 2: CONGRESO DE ANGOSTURA (Questions 6 - 9)
+            // ----------------------------------------------------
+            {
+                id: 6,
+                topic: "Congreso de Angostura",
+                svgType: "scroll",
+                learningText: "El Congreso de Angostura fue convocado en 1819 por Simón Bolívar en la ciudad de Angostura (Venezuela). Allí Bolívar propuso la gran idea de unir a Venezuela, Nueva Granada (Colombia) y Ecuador en una sola nación fuerte.",
+                question: "¿Quién convocó el Congreso de Angostura en 1819 y cuál era su gran sueño?",
+                type: "multiple",
+                options: [
+                    "A. Rafael Núñez; quería formar una alianza comercial con Inglaterra.",
+                    "B. Simón Bolívar; quería unir a Venezuela, Nueva Granada y Ecuador.",
+                    "C. Cristóbal Colón; quería construir una gran ruta de barcos.",
+                    "D. Tomás Cipriano de Mosquera; quería dividir el continente."
+                ],
+                correct: 1,
+                explanation: "¡Correcto! Simón Bolívar fue el gran impulsor del Congreso de Angostura con el objetivo de unir los pueblos liberados."
+            },
+            {
+                id: 7,
+                topic: "Congreso de Angostura",
+                svgType: "crown",
+                learningText: "En el Congreso de Angostura, Simón Bolívar fue nombrado Presidente de la naciente República de Colombia (hoy llamada Gran Colombia) y Francisco de Paula Santander fue nombrado Vicepresidente.",
+                question: "¿Qué cargo se le otorgó a Simón Bolívar durante el Congreso de Angostura?",
+                type: "multiple",
+                options: [
+                    "A. Rey de la Nueva Granada.",
+                    "B. Presidente de la República.",
+                    "C. Gobernador de España.",
+                    "D. Almirante de la Marina."
+                ],
+                correct: 1,
+                explanation: "¡Muy bien! Bolívar fue designado como el primer Presidente de esta unión patriota."
+            },
+            {
+                id: 8,
+                topic: "Congreso de Angostura",
+                svgType: "map",
+                learningText: "El objetivo principal de unir nuestros territorios en Angostura era crear una gran nación respetada en el mundo que pudiera defenderse bien de cualquier ataque de los reyes españoles.",
+                question: "El Congreso de Angostura buscaba crear una nación grande y fuerte para proteger la independencia.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Unidos eran mucho más fuertes frente a las amenazas externas que divididos en países pequeños."
+            },
+            {
+                id: 9,
+                topic: "Congreso de Angostura",
+                svgType: "landmark",
+                learningText: "La ciudad de Angostura, donde se reunieron los sabios y militares en 1819, queda ubicada en el país que hoy conocemos como Venezuela.",
+                question: "¿En qué país actual se encuentra la ciudad donde se celebró el Congreso de Angostura?",
+                type: "multiple",
+                options: [
+                    "A. Colombia",
+                    "B. Perú",
+                    "C. Venezuela",
+                    "D. Ecuador"
+                ],
+                correct: 2,
+                explanation: "¡Así es! Angostura (actual Ciudad Bolívar) se localiza a orillas del río Orinoco en Venezuela."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 3: CONGRESO DE CÚCUTA (Questions 10 - 13)
+            // ----------------------------------------------------
+            {
+                id: 10,
+                topic: "Congreso de Cúcuta",
+                svgType: "constitution",
+                learningText: "En 1821 se realizó el Congreso de Cúcuta en la Villa del Rosario de Cúcuta. Allí se redactó la primera Constitución oficial de la Gran Colombia, haciendo realidad la unión de los territorios liberados.",
+                question: "¿Qué documento muy importante se redactó en el Congreso de Cúcuta en 1821?",
+                type: "multiple",
+                options: [
+                    "A. La primera Constitución de la Gran Colombia.",
+                    "B. El tratado de paz definitivo con los piratas.",
+                    "C. La declaración de guerra contra Ecuador.",
+                    "D. El código de comercio de la minería."
+                ],
+                correct: 0,
+                explanation: "¡Excelente! La Constitución de 1821 le dio estructura legal definitiva a la Gran Colombia."
+            },
+            {
+                id: 11,
+                topic: "Congreso de Cúcuta",
+                svgType: "capital",
+                learningText: "En el Congreso de Cúcuta se decidió que la capital de toda la inmensa Gran Colombia fuera la ciudad de Santafé de Bogotá.",
+                question: "¿Qué ciudad fue elegida como la capital de la Gran Colombia en el Congreso de Cúcuta?",
+                type: "multiple",
+                options: [
+                    "A. Quito",
+                    "B. Caracas",
+                    "C. Bogotá",
+                    "D. Cartagena"
+                ],
+                correct: 2,
+                explanation: "¡Correcto! Bogotá fue seleccionada por su ubicación central y su importancia política."
+            },
+            {
+                id: 12,
+                topic: "Congreso de Cúcuta",
+                svgType: "handshake",
+                learningText: "Durante este congreso se aprobó la Ley de Libertad de Partos, lo que significaba que los hijos nacidos de madres esclavas nacerían libres al cumplir la mayoría de edad.",
+                question: "La 'Libertad de Partos' aprobada en Cúcuta significaba que los hijos de mujeres esclavas serían libres al crecer.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Fue un avance clave en el camino hacia la abolición total de la esclavitud."
+            },
+            {
+                id: 13,
+                topic: "Congreso de Cúcuta",
+                svgType: "balance",
+                learningText: "El Congreso de Cúcuta organizó el país de forma 'Centralista', lo que significaba que las decisiones principales de todo el territorio se tomaban desde la capital, Bogotá.",
+                question: "¿El sistema de gobierno elegido en la Constitución de Cúcuta de 1821 fue centralista?",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Se estableció un gobierno centralizado fuerte con poder directo desde Bogotá."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 4: ECUADOR EN LA GRAN COLOMBIA (Questions 14 - 17)
+            // ----------------------------------------------------
+            {
+                id: 14,
+                topic: "Ecuador en la Gran Colombia",
+                svgType: "map",
+                learningText: "En 1822, las tropas patriotas lideradas por el general Antonio José de Sucre ganaron la Batalla de Pichincha. Tras esta gran victoria, el territorio de Ecuador (Quito) se liberó y se unió oficialmente a la Gran Colombia.",
+                question: "¿Gracias a qué importante batalla se logró la liberación de Ecuador para unirse a la Gran Colombia?",
+                type: "multiple",
+                options: [
+                    "A. Batalla de Boyacá.",
+                    "B. Batalla del Pantano de Vargas.",
+                    "C. Batalla de Pichincha.",
+                    "D. Batalla de Carabobo."
+                ],
+                correct: 2,
+                explanation: "¡Correcto! En la Batalla de Pichincha (1822), el General Sucre logró liberar a Quito."
+            },
+            {
+                id: 15,
+                topic: "Ecuador en la Gran Colombia",
+                svgType: "people",
+                learningText: "Con la entrada de Ecuador, la Gran Colombia quedó conformada por tres grandes regiones o departamentos: Venezuela, Nueva Granada (Colombia) y Quito (Ecuador).",
+                question: "¿Cuáles eran las tres regiones principales que formaban la Gran Colombia?",
+                type: "multiple",
+                options: [
+                    "A. Colombia, Panamá y Brasil.",
+                    "B. Venezuela, Nueva Granada y Quito (Ecuador).",
+                    "C. Perú, Bolivia y Chile.",
+                    "D. México, Cuba y Jamaica."
+                ],
+                correct: 1,
+                explanation: "¡Muy bien! Esas tres regiones agrupaban los territorios liberados por Simón Bolívar y sus héroes."
+            },
+            {
+                id: 16,
+                topic: "Ecuador en la Gran Colombia",
+                svgType: "broken-chain",
+                learningText: "Lamentablemente, la Gran Colombia no duró para siempre. En 1830, debido a pleitos políticos y a las grandes distancias, Ecuador y Venezuela decidieron separarse y convertirse en países independientes.",
+                question: "En 1830, la Gran Colombia se separó y Ecuador se convirtió en un país independiente.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Las diferencias políticas y geográficas causaron la disolución de la Gran Colombia en 1830."
+            },
+            {
+                id: 17,
+                topic: "Ecuador en la Gran Colombia",
+                svgType: "hero",
+                learningText: "El héroe militar que Bolívar envió para comandar las fuerzas que liberaron el territorio ecuatoriano fue Antonio José de Sucre, conocido como el 'Gran Mariscal de Ayacucho'.",
+                question: "¿Quién fue el gran general enviado por Bolívar a liberar a Ecuador?",
+                type: "multiple",
+                options: [
+                    "A. Antonio Nariño.",
+                    "B. Antonio José de Sucre.",
+                    "C. Camilo Torres.",
+                    "D. Policarpa Salavarrieta."
+                ],
+                correct: 1,
+                explanation: "¡Así es! Sucre fue un brillante militar que logró la independencia de Ecuador en Pichincha."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 5: GOBIERNO DE JOSÉ HILARIO LÓPEZ (Questions 18 - 22)
+            // ----------------------------------------------------
+            {
+                id: 18,
+                topic: "Gobierno de José Hilario López",
+                svgType: "freedom",
+                learningText: "José Hilario López gobernó entre 1849 y 1853. Su logro más recordado y noble fue abolir (eliminar) definitivamente la esclavitud en Colombia el 21 de mayo de 1851, haciendo libres a todos los afrocolombianos.",
+                question: "¿Cuál fue la medida social más importante del gobierno de José Hilario López en 1851?",
+                type: "multiple",
+                options: [
+                    "A. La eliminación definitiva de la esclavitud en el país.",
+                    "B. La construcción del primer ferrocarril a vapor.",
+                    "C. El inicio de la guerra contra los países vecinos.",
+                    "D. La creación de la moneda de oro oficial."
+                ],
+                correct: 0,
+                explanation: "¡Excelente! La abolición de la esclavitud otorgó libertad plena a las personas esclavizadas."
+            },
+            {
+                id: 19,
+                topic: "Gobierno de José Hilario López",
+                svgType: "church",
+                learningText: "Durante el gobierno de José Hilario López, se impulsó la separación entre la Iglesia Católica y el Estado, permitiendo que la educación fuera libre y no controlada solo por los religiosos.",
+                question: "José Hilario López promovió la separación de los asuntos de la Iglesia y del Estado.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Esto permitió la libertad de cultos y una educación laica en el país."
+            },
+            {
+                id: 20,
+                topic: "Gobierno de José Hilario López",
+                svgType: "party",
+                learningText: "José Hilario López pertenecía al Partido Liberal. Sus reformas buscaban modernizar el país dando más libertades individuales, de comercio y de prensa.",
+                question: "¿A qué partido político pertenecía el presidente José Hilario López?",
+                type: "multiple",
+                options: [
+                    "A. Partido Conservador.",
+                    "B. Partido Liberal.",
+                    "C. Partido de la Unión.",
+                    "D. Partido Rey de España."
+                ],
+                correct: 1,
+                explanation: "¡Correcto! Fue uno de los principales líderes del Partido Liberal durante el siglo XIX."
+            },
+            {
+                id: 21,
+                topic: "Gobierno de José Hilario López",
+                svgType: "newspaper",
+                learningText: "En su gobierno también se declaró la Libertad de Prensa, lo que significaba que los periódicos y ciudadanos podían escribir e opinar sin pedirle permiso ni ser castigados por el gobierno.",
+                question: "¿Qué significaba la 'Libertad de Prensa' aprobada en su gobierno?",
+                type: "multiple",
+                options: [
+                    "A. Regalarle periódicos gratis a todos los niños.",
+                    "B. La libertad de opinar e informar en periódicos sin censura.",
+                    "C. La obligación de imprimir solo noticias sobre el Presidente.",
+                    "D. Prohibir la creación de periódicos y revistas."
+                ],
+                correct: 1,
+                explanation: "¡Muy bien! Garantizaba que la gente expresara sus ideas e informara sin censura previa."
+            },
+            {
+                id: 22,
+                topic: "Gobierno de José Hilario López",
+                svgType: "land",
+                learningText: "López también eliminó el tributo o impuesto que los indígenas debían pagar obligatoriamente por sus tierras desde la época del dominio español.",
+                question: "José Hilario López eliminó el impuesto colonial que debían pagar los pueblos indígenas.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Eliminó el tributo indígena buscando dar igualdad jurídica a los ciudadanos."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 6: REFORMAS LIBERALES DEL SIGLO XIX (Questions 23 - 26)
+            // ----------------------------------------------------
+            {
+                id: 23,
+                topic: "Reformas Liberales",
+                svgType: "trade",
+                learningText: "Hacia mitad del siglo XIX, las Reformas Liberales promovieron el 'Librecambismo'. Esto permitía comprar y vender productos con otros países de forma rápida y con menos impuestos en las aduanas.",
+                question: "¿En qué consistía el Librecambismo promovido por las Reformas Liberales?",
+                type: "multiple",
+                options: [
+                    "A. Prohibir comerciar con barcos extranjeros.",
+                    "B. Facilitar el comercio internacional bajando los impuestos de aduana.",
+                    "C. Obligar a la gente a intercambiar solo comida por ropa.",
+                    "D. Comprar tierras únicamente para el gobierno."
+                ],
+                correct: 1,
+                explanation: "¡Así es! Buscaba abrir las fronteras comerciales para vender productos como café y tabaco en el exterior."
+            },
+            {
+                id: 24,
+                topic: "Reformas Liberales",
+                svgType: "feather",
+                learningText: "Las Reformas Liberales del siglo XIX quitaron castigos antiguos como la pena de muerte por delitos políticos y garantizaron el derecho a la libre asociación y expresión.",
+                question: "Durante las Reformas Liberales se abolió la pena de muerte por delitos políticos.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Se buscaba humanizar las leyes penales y proteger las libertades del ciudadano."
+            },
+            {
+                id: 25,
+                topic: "Reformas Liberales",
+                svgType: "scroll",
+                learningText: "Una de las reformas más importantes fue la separación de la Iglesia y el Estado. La Iglesia ya no administraría el registro de nacimientos y matrimonios, los cuales pasaron a ser trámites del Estado.",
+                question: "¿Qué registro pasó a manos del Estado gracias a las reformas liberales?",
+                type: "multiple",
+                options: [
+                    "A. Los nacimientos, matrimonios y defunciones (Registro Civil).",
+                    "B. El control de las misas dominicales.",
+                    "C. La lista de canciones folclóricas.",
+                    "D. Las notas del colegio de los niños."
+                ],
+                correct: 0,
+                explanation: "¡Muy bien! Nació el Registro Civil estatal para todas las personas independientemente de su religión."
+            },
+            {
+                id: 26,
+                topic: "Reformas Liberales",
+                svgType: "balance",
+                learningText: "Estas reformas contaron con el rechazo del Partido Conservador y de la Iglesia Católica, pues sentían que los cambios eran demasiado bruscos y perjudicaban las tradiciones y la religión.",
+                question: "Las Reformas Liberales fueron apoyadas con entusiasmo por todos los sectores conservadores e iglesias.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 1,
+                explanation: "¡Falso! Generaron una fuerte oposición entre los conservadores y el clero, desencadenando tensiones sociales."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 7: GRANDES REFORMAS DE LA 2ª MITAD DEL SIGLO XIX (Questions 27 - 30)
+            // ----------------------------------------------------
+            {
+                id: 27,
+                topic: "Grandes Reformas Siglo XIX",
+                svgType: "constitution",
+                learningText: "En 1863 se creó la Constitución de Rionegro. Con esta Constitución, nuestro país pasó a llamarse 'Estados Unidos de Colombia' y adoptó un sistema totalmente Federalista.",
+                question: "¿Cómo se llamó Colombia bajo la Constitución de Rionegro en 1863?",
+                type: "multiple",
+                options: [
+                    "A. República de la Gran Colombia.",
+                    "B. Estados Unidos de Colombia.",
+                    "C. Reino de la Nueva Granada.",
+                    "D. Confederación Andina."
+                ],
+                correct: 1,
+                explanation: "¡Correcto! En 1863 la nación adoptó el nombre de Estados Unidos de Colombia con 9 estados soberanos."
+            },
+            {
+                id: 28,
+                topic: "Grandes Reformas Siglo XIX",
+                svgType: "map",
+                learningText: "El Federalismo significaba que el país estaba dividido en 9 'Estados Soberanos' (como Antioquia, Bolívar, Santander, etc.), y cada estado podía tener sus propias leyes y su propio ejército.",
+                question: "En el sistema Federal de 1863, cada Estado tenía su propia constitución y leyes.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Cada uno de los 9 estados gozaba de gran autonomía para gobernarse a sí mismo."
+            },
+            {
+                id: 29,
+                topic: "Grandes Reformas Siglo XIX",
+                svgType: "school",
+                learningText: "En 1870 se hizo una gran reforma educativa que declaró la educación primaria como gratuita, obligatoria y laica (sin obligar a clases religiosas específicas).",
+                question: "La Reforma Educativa de 1870 buscaba que la educación primaria fuera:",
+                type: "multiple",
+                options: [
+                    "A. Pagada y solo para niños ricos.",
+                    "B. Gratuita, obligatoria y laica.",
+                    "C. Exclusiva para formar militares.",
+                    "D. Impartida solo a través de internet."
+                ],
+                correct: 1,
+                explanation: "¡Excelente! Se quería garantizar que todos los niños colombianos aprendieran a leer y escribir sin pagar."
+            },
+            {
+                id: 30,
+                topic: "Grandes Reformas Siglo XIX",
+                svgType: "train",
+                learningText: "En la segunda mitad del siglo XIX se comenzaron a construir los primeros Ferrocarriles en Colombia para transportar el café y las mercancías hasta los ríos y puertos marítimos.",
+                question: "¿Qué medio de transporte moderno comenzó a desarrollarse en esta época para sacar el café al exterior?",
+                type: "multiple",
+                options: [
+                    "A. Aviones supersónicos.",
+                    "B. Ferrocarriles a vapor.",
+                    "C. Carros eléctricos.",
+                    "D. Teleféricos de montaña."
+                ],
+                correct: 1,
+                explanation: "¡Muy bien! Los ferrocarriles transformaron el transporte y la economía colombiana."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 8: GOBIERNO DE RAFAEL NÚÑEZ Y LA REGENERACIÓN (Questions 31 - 35)
+            // ----------------------------------------------------
+            {
+                id: 31,
+                topic: "Rafael Núñez y la Regeneración",
+                svgType: "seal",
+                learningText: "Rafael Núñez impulsó un movimiento llamado la 'Regeneración' bajo el lema: 'Una sola nación, un solo banco, una sola constitución'. Núñez quería volver al centralismo y al orden.",
+                question: "¿Cuál era el objetivo central del movimiento de la 'Regeneración' de Rafael Núñez?",
+                type: "multiple",
+                options: [
+                    "A. Volver al centralismo, al orden y unir al país con una nueva Constitución.",
+                    "B. Darle la independencia a cada ciudad para que fuera un país distinto.",
+                    "C. Eliminar el uso del español y hablar inglés.",
+                    "D. Regalar las tierras de Colombia a otros países."
+                ],
+                correct: 0,
+                explanation: "¡Correcto! La Regeneración buscaba terminar con el desorden federalista y centralizar el gobierno."
+            },
+            {
+                id: 32,
+                topic: "Rafael Núñez y la Regeneración",
+                svgType: "constitution",
+                learningText: "Rafael Núñez y Miguel Antonio Caro redactaron la famosa Constitución de 1886. Esta Constitución le devolvió el nombre de 'República de Colombia' a nuestro país y duró 105 años (hasta 1991).",
+                question: "¿Qué importante Constitución fue creada en el periodo de la Regeneración en 1886?",
+                type: "multiple",
+                options: [
+                    "A. La Constitución de Rionegro.",
+                    "B. La Constitución Política de 1886.",
+                    "C. La Constitución de Cúcuta.",
+                    "D. La Constitución de los Estados Unidos."
+                ],
+                correct: 1,
+                explanation: "¡Excelente! La Constitución de 1886 rigió a Colombia durante más de un siglo."
+            },
+            {
+                id: 33,
+                topic: "Rafael Núñez y la Regeneración",
+                svgType: "music",
+                learningText: "Rafael Núñez no solo fue presidente, sino también un gran poeta. Él escribió la letra de nuestro hermoso Himno Nacional de Colombia.",
+                question: "El presidente Rafael Núñez fue quien escribió la letra del Himno Nacional de Colombia.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! La música fue compuesta por Oreste Sindici y la letra por el presidente Rafael Núñez."
+            },
+            {
+                id: 34,
+                topic: "Rafael Núñez y la Regeneración",
+                svgType: "church",
+                learningText: "Con el Concordato de 1887 firmando entre la Regeneración y el Vaticano, la Iglesia Católica recuperó un papel muy importante en la educación de los colegios colombianos.",
+                question: "Durante la Regeneración, la Iglesia Católica volvió a tener influencia en la educación del país.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Se firmó el Concordato para restablecer las buenas relaciones con la Iglesia Católica."
+            },
+            {
+                id: 35,
+                topic: "Rafael Núñez y la Regeneración",
+                svgType: "bank",
+                learningText: "Núñez creó el Banco Nacional para que el gobierno tuviera el control exclusivo sobre la emisión de los billetes y la moneda del país.",
+                question: "¿Qué institución económica se creó para unificar la emisión de moneda durante la Regeneración?",
+                type: "multiple",
+                options: [
+                    "A. El Banco de la República actual.",
+                    "B. El Banco Nacional.",
+                    "C. El Banco Agrario colonial.",
+                    "D. La Caja Real Española."
+                ],
+                correct: 1,
+                explanation: "¡Así es! El Banco Nacional permitió tener una moneda única oficial para todo el territorio."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 9: COLOMBIA EN LA PRIMERA MITAD DEL SIGLO XX (Questions 36 - 40)
+            // ----------------------------------------------------
+            {
+                id: 36,
+                topic: "Colombia 1ª Mitad S. XX",
+                svgType: "swords",
+                learningText: "Entre 1899 y 1902 se libró la 'Guerra de los Mil Días', una sangrienta guerra civil entre Liberales y Conservadores que dejó al país arruinado y muy triste.",
+                question: "¿Cómo se llamó la gran guerra civil que destruyó la economía colombiana al iniciar el siglo XX?",
+                type: "multiple",
+                options: [
+                    "A. Guerra del Pacífico.",
+                    "B. Guerra de los Mil Días.",
+                    "C. Guerra de la Independencia.",
+                    "D. Guerra de los Supremos."
+                ],
+                correct: 1,
+                explanation: "¡Correcto! La Guerra de los Mil Días trajo pobreza y facilitó la dolorosa pérdida de Panamá."
+            },
+            {
+                id: 37,
+                topic: "Colombia 1ª Mitad S. XX",
+                svgType: "canal",
+                learningText: "En 1903, aprovechando que Colombia estaba debilitada por la guerra, el departamento de Panamá se separó del territorio colombiano con el apoyo financiero y militar de Estados Unidos.",
+                question: "¿En qué año se separó Panamá de Colombia?",
+                type: "multiple",
+                options: [
+                    "A. 1819",
+                    "B. 1903",
+                    "C. 1950",
+                    "D. 1991"
+                ],
+                correct: 1,
+                explanation: "¡Muy bien! Panamá se separó el 3 de noviembre de 1903 para construir el famoso Canal interoceánico."
+            },
+            {
+                id: 38,
+                topic: "Colombia 1ª Mitad S. XX",
+                svgType: "factory",
+                learningText: "En la década de 1920 y 1930, Colombia comenzó a industrializarse: se crearon fábricas de textiles, bebidas, carreteras y el cultivo del café se convirtió en la mayor riqueza comercial del país.",
+                question: "En las primeras décadas del siglo XX, el café se transformó en el producto de exportación más importante de Colombia.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Gracias a las ventas de café en el mundo, Colombia construyó vías, fábricas y ciudades."
+            },
+            {
+                id: 39,
+                topic: "Colombia 1ª Mitad S. XX",
+                svgType: "worker",
+                learningText: "En 1928 ocurrió un suceso muy triste conocido como la 'Masacre de las Bananeras', donde trabajadores que pedían un trato justo y mejores salarios en la empresa United Fruit Company fueron atacados.",
+                question: "¿Qué hecho histórico ocurrió en 1828 / 1928 con los trabajadores de las plantaciones de banano en la zona caribe?",
+                type: "multiple",
+                options: [
+                    "A. La fiesta del Banano de Oro.",
+                    "B. La Masacre de las Bananeras.",
+                    "C. La firma del acuerdo de paz bananero.",
+                    "D. El descubrimiento del banano gigante."
+                ],
+                correct: 1,
+                explanation: "¡Así es! La Masacre de las Bananeras (1928) puso en evidencia los graves conflictos sociales del trabajo en Colombia."
+            },
+            {
+                id: 40,
+                topic: "Colombia 1ª Mitad S. XX",
+                svgType: "plane",
+                learningText: "En 1919 se fundó en Barranquilla SCADTA (hoy conocida como AVIANCA), una de las primeras aerolíneas comerciales del mundo, ayudando a volar sobre las altas montañas de Colombia.",
+                question: "Colombia fue uno de los países pioneros en aviación comercial en todo el planeta.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Debido a nuestras geografía montañosa, la aviación ayudó a conectar las regiones rápidamente."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 10: EL PERIODO DE LA VIOLENCIA EN COLOMBIA (Questions 41 - 45)
+            // ----------------------------------------------------
+            {
+                id: 41,
+                topic: "Periodo de La Violencia",
+                svgType: "fire",
+                learningText: "El 9 de abril de 1948 fue asesinado en Bogotá el querido líder popular Jorge Eliécer Gaitán. Su muerte provocó una ola enorme de disturbios e incendios conocida como 'El Bogotazo'.",
+                question: "¿Qué gran trágico evento ocurrió tras el asesinato del líder político Jorge Eliécer Gaitán en 1948?",
+                type: "multiple",
+                options: [
+                    "A. El Bogotazo.",
+                    "B. La Toma de Panamá.",
+                    "C. La Batalla de Cúcuta.",
+                    "D. El Baile de la Independencia."
+                ],
+                correct: 0,
+                explanation: "¡Correcto! El Bogotazo destruyó parte del centro de Bogotá y encendió el periodo conocido como 'La Violencia'."
+            },
+            {
+                id: 42,
+                topic: "Periodo de La Violencia",
+                svgType: "swords",
+                learningText: "El periodo de 'La Violencia' se caracterizó por los enfrentamientos armados y fanatismo entre los seguidores del Partido Liberal y del Partido Conservador en los campos de Colombia.",
+                question: "El periodo de 'La Violencia' enfrentó principalmente a los seguidores de los partidos Liberal y Conservador.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Las disputas políticas se volvieron intolerantes y armadas, desplazando a miles de campesinos."
+            },
+            {
+                id: 43,
+                topic: "Periodo de La Violencia",
+                svgType: "shield",
+                learningText: "En 1953, el general Gustavo Rojas Pinilla dio un golpe de Estado pacífico con el fin de detener la violencia sangrienta en los campos y traer paz a los colombianos.",
+                question: "¿Qué militar asumió la presidencia de Colombia en 1953 prometiendo 'Paz, Justicia y Libertad'?",
+                type: "multiple",
+                options: [
+                    "A. Simón Bolívar.",
+                    "B. Gustavo Rojas Pinilla.",
+                    "C. Rafael Núñez.",
+                    "D. Belisario Betancur."
+                ],
+                correct: 1,
+                explanation: "¡Muy bien! El general Gustavo Rojas Pinilla asumió la presidencia pacíficamente para pacificar el país."
+            },
+            {
+                id: 44,
+                topic: "Periodo de La Violencia",
+                svgType: "tv",
+                learningText: "Durante el gobierno del general Gustavo Rojas Pinilla se trajo la Televisión a Colombia (en 1954) y se aprobó definitivamente que las mujeres pudieran votar por primera vez.",
+                question: "¿Qué gran derecho político consiguieron las mujeres en Colombia durante este periodo en 1954?",
+                type: "multiple",
+                options: [
+                    "A. El derecho a trabajar en fábricas únicamente.",
+                    "B. El derecho a votar en las elecciones.",
+                    "C. El derecho a viajar en avión sin pasaporte.",
+                    "D. El derecho a no pagar ningunos impuestos."
+                ],
+                correct: 1,
+                explanation: "¡Excelente! En 1954 se reconoció el derecho al voto femenino, que ejercieron por primera vez en el plebiscito de 1957."
+            },
+            {
+                id: 45,
+                topic: "Periodo de La Violencia",
+                svgType: "people",
+                learningText: "La fuerte violencia en las zonas rurales hizo que miles de familias campesinas tuvieran que abandonar sus tierras e irse a vivir a grandes ciudades como Bogotá, Medellín y Cali.",
+                question: "El desplazamiento de familias del campo hacia la ciudad creció durante el periodo de La Violencia.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Las ciudades crecieron velozmente por la llegada de familias campesinas buscando seguridad."
+            },
+
+            // ----------------------------------------------------
+            // TEMA 11: HECHOS POLÍTICOS EN LA SEGUNDA MITAD DEL SIGLO XX (Questions 46 - 50)
+            // ----------------------------------------------------
+            {
+                id: 46,
+                topic: "Hechos Políticos 2ª Mitad S. XX",
+                svgType: "handshake",
+                learningText: "Entre 1958 y 1974 se creó el 'Frente Nacional', un pacto político donde el Partido Liberal y el Partido Conservador acordaron alternarse (turnarse) la presidencia cada 4 años para detener la violencia.",
+                question: "¿En qué consistía la alianza conocida como el 'Frente Nacional'?",
+                type: "multiple",
+                options: [
+                    "A. En hacer competencias deportivas cada 4 años entre políticos.",
+                    "B. En repartirse y alternarse la presidencia entre liberales y conservadores.",
+                    "C. En nombrar a un rey extranjero para que gobernara.",
+                    "D. En prohibir la participación de todos los partidos políticos."
+                ],
+                correct: 1,
+                explanation: "¡Correcto! Durante 16 años los dos partidos tradicionales se turnaron el poder supremo."
+            },
+            {
+                id: 47,
+                topic: "Hechos Políticos 2ª Mitad S. XX",
+                svgType: "warning",
+                learningText: "Como el Frente Nacional no permitía que participaran nuevos partidos o ideas políticas, surgieron grupos armados al margen de la ley (como las guerrillas) en la década de 1960.",
+                question: "El descontento por la exclusión política en el Frente Nacional impulsó la aparición de guerrillas en los años 60.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Al no haber espacio para otras fuerzas políticas, nacieron grupos rebeldes armados."
+            },
+            {
+                id: 48,
+                topic: "Hechos Políticos 2ª Mitad S. XX",
+                svgType: "constitution",
+                learningText: "En 1991, tras un gran movimiento liderado por estudiantes ('La Séptima Papeleta'), se convocó la Asamblea Nacional Constituyente que creó nuestra actual Constitución Política de 1991.",
+                question: "¿Qué importante documento que protege los Derechos Humanos fue creado en Colombia en 1991?",
+                type: "multiple",
+                options: [
+                    "A. La Constitución Política de 1991.",
+                    "B. El Tratado de Angostura.",
+                    "C. El Código Penal Colonial.",
+                    "D. La Ley de Indias de 1991."
+                ],
+                correct: 0,
+                explanation: "¡Muy bien! La Constitución de 1991 es la 'Constitución de los Derechos' que rige a los colombianos hoy en día."
+            },
+            {
+                id: 49,
+                topic: "Hechos Políticos 2ª Mitad S. XX",
+                svgType: "balance",
+                learningText: "La Constitución de 1991 definió a Colombia como un Estado Social de Derecho, multicultural y pluriétnico, reconociendo el valor y respeto por los pueblos indígenas y afrocolombianos.",
+                question: "La Constitución de 1991 reconoce formalmente la diversidad étnica y cultural de Colombia.",
+                type: "tf",
+                options: ["Verdadero", "Falso"],
+                correct: 0,
+                explanation: "¡Verdadero! Se declaró a Colombia como una nación pluriétnica y multicultural con igualdad de derechos."
+            },
+            {
+                id: 50,
+                topic: "Hechos Políticos 2ª Mitad S. XX",
+                svgType: "court",
+                learningText: "Con la Constitución de 1991 se creó la 'Acción de Tutela', una herramienta rápida y fácil para que cualquier ciudadano o niño colombiano pida a un juez que defienda sus derechos fundamentales cuando se vean amenazados.",
+                question: "¿Qué mecanismo simple crearon en 1991 para que los ciudadanos protejan de inmediato sus derechos fundamentales?",
+                type: "multiple",
+                options: [
+                    "A. La Acción de Tutela.",
+                    "B. El Recurso de Multa.",
+                    "C. La Demanda Colonial.",
+                    "D. El Permiso Presidencial."
+                ],
+                correct: 0,
+                explanation: "¡Felicitaciones! La Acción de Tutela ha ayudado a millones de colombianos a defender su salud, educación y derechos."
+            }
+        ];
+
+        // DICCIONARIO DE SVGs VECTORIALES POR CATEGORÍA
+        const svgIcons = {
+            flag: `<svg class="w-full h-full text-amber-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 56V8M12 10h36l-8 12 8 12H12" stroke-linecap="round" stroke-linejoin="round" fill="#FBBF24" fill-opacity="0.2"/></svg>`,
+            constitution: `<svg class="w-full h-full text-blue-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="14" y="8" width="36" height="48" rx="4" fill="#93C5FD" fill-opacity="0.2"/><path d="M22 20h20M22 28h20M22 36h12" stroke-linecap="round"/><circle cx="40" cy="44" r="5" fill="#3B82F6" opacity="0.3"/></svg>`,
+            people: `<svg class="w-full h-full text-emerald-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="22" cy="20" r="8" fill="#A7F3D0"/><circle cx="42" cy="24" r="7" fill="#A7F3D0"/><path d="M8 50c0-8 6-12 14-12s14 4 14 12M30 50c0-6 5-10 12-10s12 4 12 10" stroke-linecap="round"/></svg>`,
+            scale: `<svg class="w-full h-full text-purple-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 8v44M16 52h32M12 20h40M20 20l-8 16h16L20 20zM44 20l-8 16h16L44 20z" stroke-linecap="round" stroke-linejoin="round" fill="#DDD6FE" fill-opacity="0.3"/></svg>`,
+            swords: `<svg class="w-full h-full text-rose-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 12l40 40M12 20l8-8M44 52l8-8M52 12L12 52M44 12l8 8M12 44l8 8" stroke-linecap="round"/></svg>`,
+            scroll: `<svg class="w-full h-full text-amber-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 12c-4 0-6 3-6 6v30c0 3 2 6 6 6s6-3 6-6V18c0-3-2-6-6-6zM16 12h32c4 0 6 3 6 6v30c0 3-2 6-6 6H16" stroke-linecap="round" fill="#FDE68A" fill-opacity="0.2"/></svg>`,
+            crown: `<svg class="w-full h-full text-yellow-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 44l6-24 16 14 16-14 6 24H10z" fill="#FEF08A" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="18" r="3" fill="#EAB308"/><circle cx="32" cy="14" r="3" fill="#EAB308"/><circle cx="54" cy="18" r="3" fill="#EAB308"/></svg>`,
+            map: `<svg class="w-full h-full text-teal-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 16l14-6 16 6 10-4v36l-10 4-16-6-14 6V16z" fill="#99F6E4" fill-opacity="0.3"/><path d="M26 10v36M42 16v36" stroke-dasharray="3 3"/></svg>`,
+            landmark: `<svg class="w-full h-full text-indigo-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 24l24-12 24 12v4H8v-4zM12 28v20M24 28v20M40 28v20M52 28v20M8 48h48v6H8v-6z" stroke-linecap="round" fill="#C7D2FE" fill-opacity="0.2"/></svg>`,
+            capital: `<svg class="w-full h-full text-red-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 10L10 26v28h44V26L32 10z" fill="#FECDD3" fill-opacity="0.3"/><rect x="26" y="36" width="12" height="18" fill="#F43F5E" opacity="0.4"/></svg>`,
+            handshake: `<svg class="w-full h-full text-emerald-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 32l12-10 10 10 8-8 10 10M12 32l10 10 10-6M52 32l-10 10-6-4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+            balance: `<svg class="w-full h-full text-sky-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 10v44M18 18h28M14 36l8-18 8 18H14zM36 36l8-18 8 18H36z" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+            brokenChain: `<svg class="w-full h-full text-amber-700" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 28h12v8H16zM36 28h12v8H36zM22 20v-4a6 6 0 0112 0M30 44v4a6 6 0 01-12 0" stroke-linecap="round"/></svg>`,
+            hero: `<svg class="w-full h-full text-blue-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 12e12 6v20c0 14 12 22 20 24 8-2 20-10 20-24V18L32 12z" fill="#BFDBFE" fill-opacity="0.3"/><path d="M26 32l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+            freedom: `<svg class="w-full h-full text-amber-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 12v12M32 40v12M12 32h12M40 32h12M18 18l8 8M38 38l8 8M18 46l8-8M38 26l8-8" stroke-linecap="round"/><circle cx="32" cy="32" r="8" fill="#FDE68A"/></svg>`,
+            church: `<svg class="w-full h-full text-slate-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 8v10M27 13h10M16 28l16-10 16 10v26H16V28z" fill="#E2E8F0" fill-opacity="0.4"/><rect x="28" y="38" width="8" height="16" fill="#64748B"/></svg>`,
+            party: `<svg class="w-full h-full text-indigo-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 48l16-32 16 32H16z" fill="#C7D2FE" fill-opacity="0.4"/><circle cx="32" cy="12" r="4" fill="#6366F1"/><circle cx="16" cy="48" r="3" fill="#818CF8"/><circle cx="48" cy="48" r="3" fill="#818CF8"/></svg>`,
+            newspaper: `<svg class="w-full h-full text-slate-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="12" y="12" width="40" height="40" rx="4" fill="#CBD5E1" fill-opacity="0.3"/><path d="M18 20h14v10H18zM36 20h10M36 26h10M18 36h28M18 42h28" stroke-linecap="round"/></svg>`,
+            land: `<svg class="w-full h-full text-lime-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 44c10-6 20 2 30-4s10-6 18-2v10H8V44z" fill="#D9F99D"/><path d="M20 28l6 12M40 24l4 16" stroke-linecap="round"/></svg>`,
+            trade: `<svg class="w-full h-full text-cyan-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 24h40M12 40h40M20 16l-8 8 8 8M44 32l8 8-8 8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+            feather: `<svg class="w-full h-full text-amber-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M48 10C30 10 16 28 16 54M48 10L32 38M48 10l-8 20M34 24l-6 10" stroke-linecap="round"/></svg>`,
+            school: `<svg class="w-full h-full text-orange-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 10L4 24l28 14 28-14L32 10z" fill="#FFEDD5"/><path d="M12 28v16c0 6 9 10 20 10s20-4 20-10V28" stroke-linecap="round"/></svg>`,
+            train: `<svg class="w-full h-full text-stone-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="16" y="12" width="32" height="36" rx="6" fill="#E7E5E4"/><rect x="22" y="18" width="20" height="12" fill="#78716C"/><circle cx="24" cy="40" r="3" fill="#292524"/><circle cx="40" cy="40" r="3" fill="#292524"/><path d="M12 54h40M20 48l-4 6M44 48l4 6" stroke-linecap="round"/></svg>`,
+            seal: `<svg class="w-full h-full text-amber-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="32" cy="28" r="16" fill="#FDE68A" fill-opacity="0.4"/><path d="M24 40l-4 16 12-6 12 6-4-16" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+            music: `<svg class="w-full h-full text-violet-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 44a5 5 0 100-10 5 5 0 000 10zM46 38a5 5 0 100-10 5 5 0 000 10zM27 39V16l24-6v23" stroke-linecap="round" stroke-linejoin="round" fill="#DDD6FE" fill-opacity="0.3"/></svg>`,
+            bank: `<svg class="w-full h-full text-emerald-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 10L8 22h48L32 10zM14 26v20M26 26v20M38 26v20M50 26v20M8 46h48v6H8v-6z" stroke-linecap="round" fill="#A7F3D0" fill-opacity="0.3"/></svg>`,
+            canal: `<svg class="w-full h-full text-blue-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 20c12 0 16 12 24 12s12-12 24-12M8 44c12 0 16 12 24 12s12-12 24-12" stroke-linecap="round"/><path d="M28 16l8-8M36 16l-8-8" stroke-linecap="round"/></svg>`,
+            factory: `<svg class="w-full h-full text-slate-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 52V28l14 8V28l14 8V16h16v36H10z" fill="#E2E8F0" fill-opacity="0.4"/><path d="M46 16V8" stroke-dasharray="2 2"/></svg>`,
+            worker: `<svg class="w-full h-full text-amber-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 14a10 10 0 00-10 10h20a10 10 0 00-10-10z" fill="#FDE68A"/><circle cx="32" cy="28" r="6"/><path d="M16 50c0-8 7-12 16-12s16 4 16 12" stroke-linecap="round"/></svg>`,
+            plane: `<svg class="w-full h-full text-sky-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 32l44-18-16 18 16 18L10 32zM28 32v12l6-6" stroke-linecap="round" stroke-linejoin="round" fill="#BAE6FD" fill-opacity="0.3"/></svg>`,
+            fire: `<svg class="w-full h-full text-red-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 8c0 12-16 16-16 28a16 16 0 0032 0C48 24 32 20 32 8z" fill="#FECDD3" fill-opacity="0.4"/><path d="M32 24c0 6-8 8-8 14a8 8 0 0016 0c0-6-8-8-8-14z" fill="#F43F5E"/></svg>`,
+            shield: `<svg class="w-full h-full text-blue-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 10L10 18v16c0 14 10 24 22 26 12-2 22-12 22-26V18L32 10z" fill="#BFDBFE" fill-opacity="0.3"/><path d="M24 32l6 6 12-12" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+            tv: `<svg class="w-full h-full text-slate-700" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="10" y="20" width="44" height="32" rx="4" fill="#E2E8F0"/><path d="M22 10l10 10M42 10L32 20M46 28h2M46 36h2" stroke-linecap="round"/></svg>`,
+            warning: `<svg class="w-full h-full text-amber-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 10L6 50h52L32 10z" fill="#FEF08A" fill-opacity="0.4"/><path d="M32 24v12M32 42h.01" stroke-linecap="round"/></svg>`,
+            court: `<svg class="w-full h-full text-indigo-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 48h40M20 48V28M44 48V28M16 28h32M32 12l-18 12h36L32 12z" stroke-linecap="round" fill="#C7D2FE" fill-opacity="0.3"/></svg>`
+        };
+
+        // ESTADO DE LA APLICACIÓN
+        let activeQuestions = [...questionsData];
+        let currentIndex = 0;
+        let score = 0;
+        let userAnswers = new Array(questionsData.length).fill(null);
+
+        // INICIALIZACIÓN
+        window.onload = function() {
+            renderQuestion();
+        };
+
+        // FILTRAR PREGUNTAS POR TEMA
+        function filterTopic(topic) {
+            if (topic === 'all') {
+                activeQuestions = [...questionsData];
+            } else {
+                activeQuestions = questionsData.filter(q => q.topic === topic);
+            }
+            currentIndex = 0;
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // RENDERIZAR LA PREGUNTA ACTUAL
+        function renderQuestion() {
+            if (activeQuestions.length === 0) return;
+
+            const q = activeQuestions[currentIndex];
+            
+            // Actualizar encabezados y progreso
+            document.getElementById('badge-topic').innerText = q.topic;
+            document.getElementById('question-index-tag').innerText = `Pregunta ${currentIndex + 1} de ${activeQuestions.length}`;
+            document.getElementById('question-num-display').innerText = `${currentIndex + 1} / ${activeQuestions.length}`;
+            
+            const progressPercent = ((currentIndex + 1) / activeQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            // SVG Ilustrativo
+            const svgContainer = document.getElementById('svg-illustration');
+            svgContainer.innerHTML = svgIcons[q.svgType] || svgIcons.flag;
+
+            // Texto "Lee y aprende" y Enunciado
+            document.getElementById('learning-text').innerText = q.learningText;
+            document.getElementById('question-title').innerText = `${currentIndex + 1}. ${q.question}`;
+
+            // Opciones de Respuesta
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const feedbackBox = document.getElementById('feedback-box');
+            feedbackBox.classList.add('hidden');
+            feedbackBox.className = "hidden rounded-2xl p-4 md:p-5 border text-sm leading-relaxed mb-4";
+
+            const currentAnswer = userAnswers[q.id - 1];
+
+            q.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border-2 transition-all font-medium text-sm md:text-base flex items-center justify-between ";
+
+                if (currentAnswer === null) {
+                    // No respondida aún
+                    btn.className += "border-slate-200 bg-slate-50 hover:bg-amber-50 hover:border-amber-300 text-slate-700";
+                    btn.onclick = () => selectOption(idx);
+                } else {
+                    // Ya respondida
+                    btn.disabled = true;
+                    if (idx === q.correct) {
+                        btn.className += "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold";
+                        btn.innerHTML = `<span>${optText}</span> <span class="text-xl">✅</span>`;
+                    } else if (idx === currentAnswer) {
+                        btn.className += "border-rose-500 bg-rose-50 text-rose-900 font-bold";
+                        btn.innerHTML = `<span>${optText}</span> <span class="text-xl">❌</span>`;
+                    } else {
+                        btn.className += "border-slate-100 bg-slate-50 text-slate-400 opacity-60";
+                        btn.innerHTML = `<span>${optText}</span>`;
+                    }
+                }
+
+                if (currentAnswer === null) {
+                    btn.innerHTML = `<span>${optText}</span>`;
+                }
+
+                optionsContainer.appendChild(btn);
+            });
+
+            // Mostrar retroalimentación si ya fue respondida
+            if (currentAnswer !== null) {
+                feedbackBox.classList.remove('hidden');
+                if (currentAnswer === q.correct) {
+                    feedbackBox.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+                    feedbackBox.innerHTML = `<strong>¡Excelente trabajo! 🌟</strong><br>${q.explanation}`;
+                } else {
+                    feedbackBox.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-800');
+                    feedbackBox.innerHTML = `<strong>¡Casi lo logras! Revisa este dato: 💡</strong><br>${q.explanation}`;
+                }
+            }
+
+            // Botones navegación
+            document.getElementById('btn-prev').disabled = currentIndex === 0;
+            
+            const btnNext = document.getElementById('btn-next');
+            if (currentIndex === activeQuestions.length - 1) {
+                btnNext.innerText = "Ver Resultados 🏆";
+                btnNext.className = "px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl text-sm transition-all flex items-center gap-1";
+            } else {
+                btnNext.innerText = "Siguiente ➡️";
+                btnNext.className = "px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl text-sm transition-all flex items-center gap-1";
+            }
+        }
+
+        // SELECCIONAR RESPUESTA
+        function selectOption(selectedIndex) {
+            const q = activeQuestions[currentIndex];
+            userAnswers[q.id - 1] = selectedIndex;
+
+            if (selectedIndex === q.correct) {
+                score++;
+            }
+
+            document.getElementById('score-display').innerText = `${score} / ${questionsData.length}`;
+            renderQuestion();
+        }
+
+        // PREGUNTA ANTERIOR
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderQuestion();
+            }
+        }
+
+        // SIGUIENTE PREGUNTA / MOSTRAR RESULTADOS
+        function nextQuestion() {
+            if (currentIndex < activeQuestions.length - 1) {
+                currentIndex++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // MOSTRAR PANTALLA FINAL DE RESULTADOS
+        function showResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultsScreen = document.getElementById('results-screen');
+            resultsScreen.classList.remove('hidden');
+
+            const total = activeQuestions.length;
+            // Calcular puntos solo de las activas
+            let activeScore = 0;
+            activeQuestions.forEach(q => {
+                if (userAnswers[q.id - 1] === q.correct) activeScore++;
+            });
+
+            const percentage = Math.round((activeScore / total) * 100);
+
+            document.getElementById('final-score').innerText = `${activeScore} / ${total}`;
+            document.getElementById('score-percentage').innerText = `${percentage}% de respuestas correctas`;
+
+            const msgElement = document.getElementById('result-message');
+            if (percentage >= 90) {
+                msgElement.innerHTML = "🎉 <strong>¡Eres un súper historiador de Colombia!</strong><br>Obtuviste una calificación sobresaliente. ¡Estás 100% listo para sacar 5.0 en tu examen!";
+            } else if (percentage >= 70) {
+                msgElement.innerHTML = "👏 <strong>¡Muy buen trabajo!</strong><br>Demostraste un buen conocimiento. Repasa un poco los temas donde tuviste dudas para asegurar la máxima nota.";
+            } else {
+                msgElement.innerHTML = "📚 <strong>¡Sigue practicando!</strong><br>Leíste mucho y aprendiste cosas nuevas. Te recomendamos repasar los textos 'Lee y aprende' e intentarlo otra vez.";
+            }
+        }
+
+        // REINICIAR EXAMEN
+        function restartQuiz() {
+            score = 0;
+            currentIndex = 0;
+            userAnswers = new Array(questionsData.length).fill(null);
+            document.getElementById('score-display').innerText = `0 / ${questionsData.length}`;
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            renderQuestion();
+        }
+    </script>
+</body>
+</html>
