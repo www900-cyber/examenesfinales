@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen de Ciencias Sociales - Grado Quinto</title>
+<style>
+:root{--blue:#245c91;--navy:#173b60;--sky:#eaf4fc;--gold:#f5c75e;--ink:#253443;--line:#d8e4ef}
+*{box-sizing:border-box}body{margin:0;background:#f3f7fb;color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.55}
+header{background:linear-gradient(120deg,#173b60,#347db5);color:white;text-align:center;padding:28px 16px}
+header h1{font-size:clamp(1.55rem,4vw,2.35rem);margin:6px 0}header p{margin:3px}
+main{max-width:980px;margin:22px auto;padding:0 14px 40px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0;box-shadow:0 4px 14px #173b6010}
+h2{color:var(--navy);font-size:1.28rem;margin:0 0 12px}
+.intro{background:#fff8e5;border-color:#f0dfa8}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+label{font-weight:bold;display:block;margin-bottom:5px}input[type=text]{width:100%;padding:12px;border:1px solid #b8cadb;border-radius:9px;font-size:1rem}
+.visual{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;background:#f2f8fd;border-radius:12px;padding:14px;margin:12px 0}
+.visual svg{width:min(100%,330px);height:auto;max-height:185px}.emoji{font-size:3rem}
+.reading{background:#f7faff;border-left:5px solid #5795c8;padding:14px 17px;border-radius:8px;margin:12px 0}
+.question{padding:15px 0;border-bottom:1px solid var(--line)}.question:last-child{border:0}
+.qtitle{font-weight:bold;margin-bottom:8px}.qnum{color:var(--blue);font-weight:bold}
+.options{display:grid;gap:7px}.option{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border:1px solid #dce7f0;border-radius:9px;cursor:pointer;background:white}
+.option:hover{background:#f2f8fd}.option input{margin-top:5px;accent-color:var(--blue)}
+button{border:0;border-radius:10px;padding:13px 20px;font-size:1rem;font-weight:bold;cursor:pointer}
+.primary{background:var(--blue);color:white}.secondary{background:#e8f1f8;color:var(--navy)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+#result{display:none}.score{font-size:2rem;color:var(--blue);font-weight:bold}.review-item{padding:10px;border-radius:9px;margin:8px 0;background:#f6f8fa}.correct{border-left:5px solid #2d9a60}.wrong{border-left:5px solid #d65c50}
+.small{font-size:.9rem;color:#536575}
+.timeline{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}.timeline span{background:#e4f0fa;color:#194d78;padding:7px 10px;border-radius:20px;font-weight:bold;font-size:.9rem}
+footer{text-align:center;color:#607487;padding:18px}
+@media print{body{background:white}.card{box-shadow:none;break-inside:avoid}header{background:#245c91!important;print-color-adjust:exact}.actions,#result{display:none!important}}
+</style>
+</head>
+<body>
+<header>
+ <div style="font-size:2.5rem">🇨🇴 📜 🏛️</div>
+ <h1>EXAMEN DE CIENCIAS SOCIALES</h1>
+ <p>Grado quinto de primaria · Colombia</p>
+ <p>Historia de Colombia: siglo XIX y siglo XX</p>
+</header>
+<main>
+<section class="card intro">
+<h2>¡Bienvenido, explorador de la historia! 🧭</h2>
+<p>Lee con calma cada pregunta y selecciona <b>una sola respuesta</b>. El examen contiene preguntas de selección múltiple, comprensión lectora y verdadero o falso.</p>
+<p>Son <b>50 preguntas</b>. Cada respuesta correcta vale un punto. ¡Muchos éxitos!</p>
+<div class="fields">
+ <div><label for="student">Nombre del estudiante</label><input id="student" type="text" placeholder="Escribe tu nombre"></div>
+ <div><label for="grade">Grado</label><input id="grade" type="text" value="5.º de primaria"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>🗺️ Parte 1. De la independencia a la Gran Colombia</h2>
+<div class="visual">
+<svg viewBox="0 0 330 170" role="img" aria-label="Ilustración de un mapa antiguo, una bandera y un libro de historia">
+<path d="M30 25Q80 10 125 28V135Q80 115 30 135Z" fill="#f3dfb4" stroke="#9c7b49" stroke-width="3"/>
+<path d="M125 28Q175 10 220 25V135Q175 115 125 135Z" fill="#f8e9c8" stroke="#9c7b49" stroke-width="3"/>
+<path d="M45 48h65M45 63h55M45 78h60M145 48h60M145 63h55M145 78h60" stroke="#b59a6b" stroke-width="3"/>
+<path d="M245 22v110" stroke="#775b3b" stroke-width="5"/><path d="M250 25h65v24h-65" fill="#f6d34d"/><path d="M250 49h65v24h-65" fill="#2c9b59"/><path d="M250 73h65v24h-65" fill="#d84b4b"/>
+<text x="34" y="157" font-size="12" fill="#36536d">Historia y documentos</text>
+</svg>
+<div><b>Un país en construcción</b><br>Después de la independencia, los líderes organizaron el territorio y crearon instituciones para gobernar.</div>
+</div>
+<div class="timeline"><span>1819 · Angostura</span><span>1821 · Cúcuta</span><span>1822 · Quito se integra</span></div>
+<div id="q1"></div>
+</section>
+
+<section class="card">
+<h2>📖 Parte 2. Comprensión lectora: el Congreso de Angostura y el de Cúcuta</h2>
+<div class="reading"><b>Lee el texto:</b><br>En 1819, durante la lucha por la independencia, Simón Bolívar impulsó el Congreso de Angostura. Allí se discutieron ideas para organizar un nuevo gobierno y se dio un paso importante hacia la creación de la República de Colombia, conocida después como la Gran Colombia. En 1821 se reunió el Congreso de Cúcuta, que aprobó la Constitución de Cúcuta y organizó las instituciones de la nueva república. La Gran Colombia reunió territorios que hoy corresponden a Colombia, Venezuela, Ecuador y Panamá.</div>
+<div class="visual"><div class="emoji">📜</div><div class="emoji">🏛️</div><div><b>Dos congresos importantes</b><br>Angostura abrió el camino y Cúcuta organizó la nueva república.</div></div>
+<div id="q2"></div>
+</section>
+
+<section class="card">
+<h2>🏛️ Parte 3. La época republicana y las reformas del siglo XIX</h2>
+<div class="reading"><b>Lee el texto:</b><br>Después de la independencia comenzó la época republicana, cuando se organizaron gobiernos, leyes e instituciones propias. A mediados del siglo XIX, los liberales promovieron cambios para transformar la sociedad. Durante el gobierno de José Hilario López (1849-1853) se impulsaron reformas importantes, como la abolición de la esclavitud, que se hizo efectiva en 1852. Más adelante, los liberales defendieron ideas como el federalismo, la libertad de prensa y una menor influencia de la Iglesia en los asuntos del Estado.</div>
+<div class="visual"><div class="emoji">⚖️</div><div class="emoji">🗳️</div><div class="emoji">📚</div><div><b>Las reformas</b><br>Buscaban cambiar las leyes y la organización del país.</div></div>
+<div id="q3"></div>
+</section>
+
+<section class="card">
+<h2>👤 Parte 4. Rafael Núñez y la Regeneración</h2>
+<div class="visual">
+<svg viewBox="0 0 300 170" role="img" aria-label="Ilustración de un documento constitucional y edificio de gobierno">
+<rect x="30" y="20" width="110" height="130" rx="5" fill="#fff" stroke="#9eb4c8" stroke-width="3"/>
+<path d="M48 48h75M48 65h75M48 82h65M48 99h75" stroke="#6d91ad" stroke-width="4"/>
+<path d="M180 145V75h90v70M170 75h110L225 35Z" fill="#dceaf5" stroke="#426d91" stroke-width="3"/>
+<path d="M195 145v-35h18v35M237 145v-35h18v35" fill="#9bbbd5" stroke="#426d91" stroke-width="2"/>
+<text x="31" y="164" font-size="11" fill="#36536d">Constitución y gobierno</text>
+</svg>
+<div><b>La Regeneración</b><br>Movimiento político asociado con Rafael Núñez. Buscó reorganizar el país y fortaleció el poder central.</div>
+</div>
+<div id="q4"></div>
+</section>
+
+<section class="card">
+<h2>📚 Parte 5. Colombia durante la primera mitad del siglo XX</h2>
+<div class="reading"><b>Lee el texto:</b><br>La primera mitad del siglo XX comprende los años 1901 a 1950. Colombia vivió cambios políticos, económicos y sociales. En 1903 Panamá se separó de Colombia. En 1928 ocurrió la Masacre de las Bananeras, cuando trabajadores de una zona bananera fueron reprimidos durante una huelga. En 1930 terminó el largo periodo de gobiernos conservadores y comenzó la llamada República Liberal. El 9 de abril de 1948 fue asesinado el líder liberal Jorge Eliécer Gaitán en Bogotá. Este hecho provocó graves disturbios conocidos como el Bogotazo y profundizó los conflictos políticos.</div>
+<div class="timeline"><span>1903 · Separación de Panamá</span><span>1928 · Bananeras</span><span>1930 · República Liberal</span><span>1948 · Bogotazo</span></div>
+<div id="q5"></div>
+</section>
+
+<section class="card">
+<h2>🕊️ Parte 6. El periodo de La Violencia y la segunda mitad del siglo XX</h2>
+<div class="reading"><b>Lee el texto:</b><br>La Violencia fue un periodo de enfrentamientos, especialmente entre seguidores de los partidos Liberal y Conservador. Se desarrolló con gran intensidad desde finales de los años cuarenta y durante los años cincuenta. En 1953, Gustavo Rojas Pinilla llegó al poder mediante un golpe de Estado. En 1958 comenzó el Frente Nacional, un acuerdo en el que liberales y conservadores se alternaron la Presidencia y compartieron el poder durante dieciséis años. En 1991 se promulgó una nueva Constitución Política, que reconoció derechos y fortaleció la participación ciudadana.</div>
+<div class="visual"><div class="emoji">🕊️</div><div class="emoji">🤝</div><div class="emoji">📜</div><div><b>De los conflictos a nuevos acuerdos</b><br>La historia también muestra esfuerzos por construir paz, democracia y respeto por los derechos.</div></div>
+<div id="q6"></div>
+</section>
+
+<div class="actions">
+ <button class="primary" onclick="gradeExam()">Calificar examen</button>
+ <button class="secondary" onclick="window.print()">Imprimir examen</button>
+ <button class="secondary" onclick="resetExam()">Borrar respuestas</button>
+</div>
+<section class="card" id="result" aria-live="polite">
+ <h2>🏆 Resultado del examen</h2>
+ <div class="score" id="score"></div>
+ <p id="message"></p><p id="details"></p>
+ <div id="review"></div>
+ <button class="secondary" onclick="window.print()">Imprimir resultado</button>
+</section>
+</main>
+<footer>Conocer nuestra historia nos ayuda a comprender el presente y construir un mejor futuro. 🇨🇴</footer>
+<script>
+const groups=[
+{target:'q1',qs:[
+['¿Qué se entiende por época republicana?', ['El periodo en que se organizaron gobiernos e instituciones propias después de la independencia','La época en que Colombia fue una colonia romana','El tiempo en que no existían leyes'],0,'mc'],
+['¿Quién fue una figura fundamental en la independencia y en la creación de la Gran Colombia?', ['Simón Bolívar','Cristóbal Colón','Rafael Pombo'],0,'mc'],
+['¿En qué año se reunió el Congreso de Angostura?', ['1819','1821','1903'],0,'mc'],
+['¿Cuál fue una de las ideas centrales tratadas en Angostura?', ['Organizar un gobierno para la nueva república','Construir ferrocarriles modernos','Crear la Constitución de 1991'],0,'mc'],
+['¿En qué año se reunió el Congreso de Cúcuta?', ['1821','1810','1886'],0,'mc'],
+['¿Qué resultado importante tuvo el Congreso de Cúcuta?', ['Aprobó la Constitución de Cúcuta y organizó la nueva república','Declaró la independencia de Panamá','Inició el Frente Nacional'],0,'mc'],
+['¿Qué países actuales formaron parte de la Gran Colombia?', ['Colombia, Venezuela, Ecuador y Panamá','Colombia, Perú, Chile y Argentina','Colombia, México, Brasil y Cuba'],0,'mc'],
+['¿Qué ocurrió con el territorio de Quito, hoy Ecuador?', ['Se integró a la Gran Colombia después de su liberación en 1822','Se convirtió en parte de España para siempre','Se unió a Panamá en 1903'],0,'mc']
+]},
+{target:'q2',qs:[
+['Según la lectura, ¿qué congreso se reunió primero?', ['El Congreso de Angostura','El Congreso de Cúcuta','El Congreso de 1991'],0,'mc'],
+['¿Qué se aprobó en el Congreso de Cúcuta de 1821?', ['La Constitución de Cúcuta','La Constitución de 1886','La Constitución de 1991'],0,'mc'],
+['¿Cuál era el propósito de organizar una república?', ['Crear un gobierno e instituciones para organizar el territorio','Regresar al sistema de gobierno colonial','Eliminar todas las leyes'],0,'mc'],
+['La Gran Colombia reunió territorios que hoy pertenecen a varios países.', ['Verdadero','Falso'],0,'tf'],
+['El Congreso de Cúcuta se reunió antes que el de Angostura.', ['Verdadero','Falso'],1,'tf']
+]},
+{target:'q3',qs:[
+['¿Qué buscaban principalmente las reformas liberales del siglo XIX?', ['Cambiar leyes y transformar la organización de la sociedad y el Estado','Restablecer el dominio español','Eliminar las escuelas'],0,'mc'],
+['¿Quién fue presidente de la Nueva Granada entre 1849 y 1853?', ['José Hilario López','Rafael Núñez','Gustavo Rojas Pinilla'],0,'mc'],
+['¿Qué importante medida se hizo efectiva en 1852 durante el gobierno de José Hilario López?', ['La abolición de la esclavitud','La separación de Panamá','La creación del Frente Nacional'],0,'mc'],
+['¿Qué significa abolir la esclavitud?', ['Prohibir que una persona sea propiedad de otra','Obligar a todas las personas a trabajar sin pago','Crear nuevos impuestos'],0,'mc'],
+['¿Cuál era una idea defendida por los liberales del siglo XIX?', ['La libertad de prensa','El regreso del gobierno colonial','La prohibición de publicar opiniones'],0,'mc'],
+['¿Qué es el federalismo?', ['Una forma de organización en la que las regiones tienen cierta autonomía','Un sistema en el que no hay departamentos','Un gobierno dirigido por otro país'],0,'mc'],
+['La abolición de la esclavitud se hizo efectiva en Colombia en 1852.', ['Verdadero','Falso'],0,'tf'],
+['José Hilario López fue presidente durante la segunda mitad del siglo XX.', ['Verdadero','Falso'],1,'tf']
+]},
+{target:'q4',qs:[
+['¿Quién fue Rafael Núñez?', ['Un político colombiano que fue presidente y promovió la Regeneración','Un líder de la independencia de México','Un presidente de Panamá'],0,'mc'],
+['¿Qué fue la Regeneración?', ['Un movimiento político que buscó reorganizar el país y fortalecer el poder central','Una guerra entre Colombia y Ecuador en 1991','Un movimiento para separar a Colombia de América'],0,'mc'],
+['¿Qué Constitución se aprobó durante el proceso político de la Regeneración?', ['La Constitución de 1886','La Constitución de 1821','La Constitución de 1991'],0,'mc'],
+['¿Qué característica tuvo la Constitución de 1886?', ['Estableció un Estado centralista','Convirtió a Colombia en una monarquía española','Creó el voto para niños'],0,'mc'],
+['¿Qué significa que un Estado sea centralista?', ['Que el poder principal se concentra en el gobierno nacional','Que cada ciudad es un país independiente','Que no existe un gobierno nacional'],0,'mc'],
+['Rafael Núñez estuvo relacionado con el movimiento llamado Regeneración.', ['Verdadero','Falso'],0,'tf'],
+['La Constitución de 1886 organizó a Colombia como un Estado federal con gran autonomía regional.', ['Verdadero','Falso'],1,'tf']
+]},
+{target:'q5',qs:[
+['¿Qué hecho ocurrió en 1903?', ['Panamá se separó de Colombia','Se aprobó la Constitución de 1991','Comenzó el Frente Nacional'],0,'mc'],
+['¿En qué año ocurrió la Masacre de las Bananeras?', ['1928','1819','1958'],0,'mc'],
+['¿Qué situación vivieron los trabajadores bananeros en 1928?', ['Una huelga que terminó en una violenta represión','Una celebración por la independencia','La elección de un nuevo Congreso'],0,'mc'],
+['¿Qué periodo político comenzó en 1930?', ['La República Liberal','El Frente Nacional','La Regeneración'],0,'mc'],
+['¿Quién fue Jorge Eliécer Gaitán?', ['Un importante líder político liberal','El primer presidente de Panamá','El fundador de la Gran Colombia'],0,'mc'],
+['¿Qué hecho ocurrió el 9 de abril de 1948?', ['El asesinato de Jorge Eliécer Gaitán','La aprobación de la Constitución de Cúcuta','La abolición de la esclavitud'],0,'mc'],
+['¿Cómo se conoce a los disturbios que ocurrieron en Bogotá después del asesinato de Gaitán?', ['El Bogotazo','La Regeneración','La Guerra de los Mil Días'],0,'mc'],
+['La separación de Panamá ocurrió durante la primera mitad del siglo XX.', ['Verdadero','Falso'],0,'tf']
+]},
+{target:'q6',qs:[
+['¿Entre qué partidos se presentaron muchos enfrentamientos durante La Violencia?', ['Liberal y Conservador','Verde y Amarillo','Federalista y Monárquico español'],0,'mc'],
+['¿Qué fue La Violencia en Colombia?', ['Un periodo de fuertes enfrentamientos políticos y sociales','Una celebración nacional','Una reforma educativa'],0,'mc'],
+['¿Quién llegó al poder en 1953 mediante un golpe de Estado?', ['Gustavo Rojas Pinilla','José Hilario López','Simón Bolívar'],0,'mc'],
+['¿En qué año comenzó el Frente Nacional?', ['1958','1821','1903'],0,'mc'],
+['¿Qué acordaron los partidos Liberal y Conservador durante el Frente Nacional?', ['Alternarse la Presidencia y compartir el poder','Eliminar todos los departamentos','Unirse a España'],0,'mc'],
+['¿Cuántos años duró el acuerdo del Frente Nacional?', ['Dieciséis años','Dos años','Cien años'],0,'mc'],
+['¿En qué año se promulgó la Constitución Política que actualmente orienta a Colombia?', ['1991','1886','1852'],0,'mc'],
+['¿Qué importancia tuvo la Constitución de 1991?', ['Reconoció derechos y fortaleció la participación ciudadana','Restableció la esclavitud','Separó a Panamá de Colombia'],0,'mc'],
+['La segunda mitad del siglo XX comprende, aproximadamente, los años 1951 a 2000.', ['Verdadero','Falso'],0,'tf'],
+['El Frente Nacional fue un acuerdo entre los partidos Liberal y Conservador.', ['Verdadero','Falso'],0,'tf']
+]}
+];
+let allQuestions=[];
+function render(){
+ let n=0;
+ groups.forEach(g=>{
+  const el=document.getElementById(g.target);
+  g.qs.forEach(q=>{
+   n++;allQuestions.push({...q,num:n});
+   const div=document.createElement('div');div.className='question';
+   const title=document.createElement('div');title.className='qtitle';title.innerHTML=`<span class="qnum">Pregunta ${n}.</span> ${q[0]}`;div.appendChild(title);
+   const opts=document.createElement('div');opts.className='options';
+   q[1].forEach((o,i)=>{
+    const lab=document.createElement('label');lab.className='option';
+    lab.innerHTML=`<input type="radio" name="q${n}" value="${i}"><span>${String.fromCharCode(65+i)}. ${o}</span>`;
+    opts.appendChild(lab);
+   });
+   div.appendChild(opts);el.appendChild(div);
+  });
+ });
+}
+function gradeExam(){
+ let score=0,answered=0,review='';
+ allQuestions.forEach(q=>{
+  const chosen=document.querySelector(`input[name="q${q.num}"]:checked`);
+  const ok=chosen && Number(chosen.value)===q[2];
+  if(chosen)answered++;if(ok)score++;
+  review+=`<div class="review-item ${ok?'correct':'wrong'}"><b>${q.num}. ${ok?'¡Correcto!':'Repasa esta pregunta.'}</b> ${q[0]}<br><span class="small">Respuesta correcta: ${String.fromCharCode(65+q[2])}. ${q[1][q[2]]}</span></div>`;
+ });
+ const pct=Math.round(score/allQuestions.length*100);
+ document.getElementById('score').textContent=`${score} / 50 puntos (${pct}%)`;
+ document.getElementById('message').textContent=pct>=90?'¡Excelente! Tienes una gran memoria histórica. 🌟':pct>=80?'¡Muy buen trabajo! Sigue aprendiendo sobre Colombia. 🇨🇴':pct>=60?'¡Vas bien! Repasa las fechas y los acontecimientos para mejorar. 📚':'¡Ánimo! Estudiar y volver a intentarlo te ayudará a aprender. 💪';
+ document.getElementById('details').textContent=`Respondiste ${answered} de 50 preguntas. Las preguntas sin marcar cuentan como incorrectas.`;
+ document.getElementById('review').innerHTML=review;
+ document.getElementById('result').style.display='block';
+ document.getElementById('result').scrollIntoView({behavior:'smooth'});
+}
+function resetExam(){
+ if(!confirm('¿Quieres borrar todas las respuestas y comenzar de nuevo?'))return;
+ document.querySelectorAll('input[type=radio]').forEach(x=>x.checked=false);
+ document.getElementById('result').style.display='none';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+render();
+</script>
+</body>
+</html>
