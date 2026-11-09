@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen de Ciencias Naturales - 5° Grado</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        brand: {
+                            blue: '#0284c7',
+                            light: '#e0f2fe',
+                            accent: '#38bdf8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-radio:checked + label {
+            border-color: #0284c7;
+            background-color: #f0f9ff;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen pb-12">
+
+    <!-- Header / Banner Header -->
+    <header class="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white py-6 px-4 shadow-md no-print">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-sky-500/20 rounded-xl border border-sky-400/30">
+                    <svg class="w-10 h-10 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">Evaluación de Ciencias Naturales</h1>
+                    <p class="text-sky-300 text-sm font-medium">Grado 5° | Sistema Nervioso y Sistema Excretor</p>
+                </div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg text-center border border-white/10">
+                <span class="text-xs uppercase tracking-wider text-sky-200 block">Total Preguntas</span>
+                <span class="text-2xl font-black text-white">50</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Student Information Form Header -->
+    <section class="max-w-5xl mx-auto mt-6 px-4 no-print">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                Datos del Estudiante
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Nombre Completo</label>
+                    <input type="text" id="studentName" placeholder="Ej: María Camila Pérez" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Grado / Grupo</label>
+                    <input type="text" id="studentGroup" value="5° A" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Fecha</label>
+                    <input type="date" id="examDate" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating / Top Sticky Bar for Progress & Timer -->
+    <div class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-3 px-4 mt-6 no-print">
+        <div class="max-w-5xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 text-slate-700 font-semibold text-sm">
+                    <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Tiempo: <span id="timer" class="font-mono text-sky-600 font-bold">00:00</span></span>
+                </div>
+                <div class="hidden sm:block h-4 w-px bg-slate-300"></div>
+                <div class="text-xs font-semibold text-slate-600">
+                    Respondidas: <span id="answeredCount" class="text-sky-600 font-bold">0</span> / 50
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="w-32 bg-slate-200 rounded-full h-3 overflow-hidden hidden sm:block">
+                    <div id="progressBar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+                <button onclick="gradeExam()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-5 rounded-xl shadow-md hover:shadow-lg transition flex items-center gap-2 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Finalizar y Calificar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 mt-8 space-y-12">
+
+        <!-- Score Results Card (Hidden by default) -->
+        <section id="resultsCard" class="hidden bg-white rounded-2xl border-2 border-sky-500 p-8 shadow-xl text-center transition-all duration-500">
+            <h2 class="text-2xl font-black text-slate-900 mb-2">¡Examen Finalizado!</h2>
+            <p id="resultStudentInfo" class="text-slate-600 font-medium mb-6"></p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 max-w-2xl mx-auto">
+                <div class="bg-sky-50 rounded-xl p-4 border border-sky-100">
+                    <span class="text-xs text-sky-700 font-bold uppercase block mb-1">Calificación</span>
+                    <span id="finalScore" class="text-4xl font-extrabold text-sky-600">0.0</span>
+                    <span class="text-xs text-slate-500 block mt-1">Escala 1.0 - 5.0</span>
+                </div>
+                <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                    <span class="text-xs text-emerald-700 font-bold uppercase block mb-1">Aciertos</span>
+                    <span id="correctCount" class="text-4xl font-extrabold text-emerald-600">0</span>
+                    <span class="text-xs text-slate-500 block mt-1">de 50 preguntas</span>
+                </div>
+                <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+                    <span class="text-xs text-indigo-700 font-bold uppercase block mb-1">Porcentaje</span>
+                    <span id="percentageScore" class="text-4xl font-extrabold text-indigo-600">0%</span>
+                    <span class="text-xs text-slate-500 block mt-1">de efectividad</span>
+                </div>
+            </div>
+
+            <p id="feedbackMessage" class="text-lg font-semibold text-slate-700 mb-6"></p>
+
+            <div class="flex flex-wrap justify-center gap-4 no-print">
+                <button onclick="window.print()" class="bg-slate-800 text-white font-bold py-2.5 px-6 rounded-xl hover:bg-slate-900 transition flex items-center gap-2 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Imprimir Resultado
+                </button>
+                <button onclick="resetExam()" class="bg-slate-200 text-slate-800 font-bold py-2.5 px-6 rounded-xl hover:bg-slate-300 transition flex items-center gap-2 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Intentar de Nuevo
+                </button>
+            </div>
+        </section>
+
+        <!-- QUESTIONS CONTAINER INJECTED BY JS -->
+        <div id="examContainer" class="space-y-12"></div>
+
+    </main>
+
+    <footer class="mt-16 text-center text-slate-500 text-xs py-6 border-t border-slate-200 no-print">
+        <p>Examen Interactivo de Ciencias Naturales — Educativo para Estudiantes de 5° Grado</p>
+    </footer>
+
+    <script>
+        // Set Today's Date default
+        document.getElementById('examDate').valueAsDate = new Date();
+
+        // Timer Logic
+        let secondsElapsed = 0;
+        const timerElement = document.getElementById('timer');
+        const timerInterval = setInterval(() => {
+            secondsElapsed++;
+            const mins = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
+            const secs = (secondsElapsed % 60).toString().padStart(2, '0');
+            timerElement.textContent = `${mins}:${secs}`;
+        }, 1000);
+
+        // SVG Icons Generator Function for Question Visuals
+        function getSVG(type) {
+            const svgs = {
+                brain: `<svg class="w-16 h-16 text-sky-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M24 16C18 16 12 20 12 28C12 34 16 38 20 40C18 46 22 52 28 52C30 52 32 50 32 48C32 50 34 52 36 52C42 52 46 46 44 40C48 38 52 34 52 28C52 20 46 16 40 16C36 12 28 12 24 16Z" fill="#e0f2fe"/><path d="M32 16V48M20 28C24 28 28 26 32 26M44 28C40 28 36 26 32 26M20 40C24 38 28 40 32 40M44 40C40 38 36 40 32 40"/></svg>`,
+                neuron: `<svg class="w-16 h-16 text-sky-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 32L8 24M16 32L8 40M16 32L24 16M16 32L24 48M16 32H40M40 32L48 24M40 32L56 32M40 32L48 40" stroke-linecap="round"/><circle cx="16" cy="32" r="6" fill="#7dd3fc"/></svg>`,
+                cerebellum: `<svg class="w-16 h-16 text-sky-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 24C12 16 20 12 32 12C44 12 52 16 52 24C52 36 44 44 32 44C20 44 12 36 12 24Z" fill="#bae6fd"/><path d="M18 24C24 28 40 28 46 24M22 34C28 38 36 38 42 34"/><circle cx="32" cy="52" r="4" fill="#0284c7"/></svg>`,
+                spinalCord: `<svg class="w-16 h-16 text-sky-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="26" y="8" width="12" height="48" rx="6" fill="#e0f2fe"/><path d="M20 16H44M20 28H44M20 40H44M20 52H44" stroke-linecap="round"/></svg>`,
+                reflex: `<svg class="w-16 h-16 text-amber-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 40L24 16L32 32L40 20L52 48" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="16" r="3" fill="#f59e0b"/><circle cx="40" cy="20" r="3" fill="#f59e0b"/></svg>`,
+                kidney: `<svg class="w-16 h-16 text-sky-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 16C12 22 12 42 20 48C28 54 44 48 40 36C38 30 38 26 40 24C44 14 28 10 20 16Z" fill="#bae6fd"/><path d="M38 30H52M38 34H48" stroke-linecap="round"/></svg>`,
+                nephron: `<svg class="w-16 h-16 text-sky-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20C20 20 20 36 28 36C36 36 36 16 44 16H52" stroke-linecap="round"/><circle cx="16" cy="20" r="6" fill="#7dd3fc"/><path d="M44 16V48" stroke-linecap="round"/></svg>`,
+                bladder: `<svg class="w-16 h-16 text-sky-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 12L26 24C20 30 20 44 32 44C44 44 44 30 38 24L44 12" fill="#e0f2fe"/><path d="M32 44V56" stroke-linecap="round"/></svg>`,
+                skin: `<svg class="w-16 h-16 text-sky-600" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="12" y="20" width="40" height="8" rx="2" fill="#bae6fd"/><path d="M20 28V48M32 28V48M44 28V48"/><circle cx="32" cy="44" r="3" fill="#0284c7"/></svg>`,
+                hygiene: `<svg class="w-16 h-16 text-emerald-500" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 12C32 12 16 28 16 38C16 46.8366 23.1634 54 32 54C40.8366 54 48 46.8366 48 38C48 28 32 12 32 12Z" fill="#d1fae5"/><path d="M26 36C26 36 28 40 32 40" stroke-linecap="round"/></svg>`
+            };
+            return svgs[type] || svgs.brain;
+        }
+
+        // Exam Data Modules & Questions
+        const modulesData = [
+            {
+                moduleTitle: "Módulo 1: El Sistema Nervioso",
+                readings: [
+                    {
+                        title: "Lectura 1: El Centro de Mando - El Encéfalo y las Neuronas",
+                        text: "El sistema nervioso es el encargado de dirigir, supervisar y controlar todas las funciones y actividades de nuestro cuerpo. El encéfalo está ubicado en la cabeza, protegido por los huesos del cráneo. El encéfalo contiene al cerebro (que controla la memoria, el pensamiento y los sentimientos), el cerebelo (que coordina los movimientos y el equilibrio) y el bulbo raquídeo (que regula funciones involuntarias como los latidos del corazón y la respiración). Todo este sistema funciona gracias a células especializadas llamadas neuronas, que transmiten información en forma de pequeños impulsos eléctricos.",
+                        questions: [
+                            {
+                                id: 1,
+                                type: "mc",
+                                svg: "brain",
+                                question: "¿Cuál es la función principal del sistema nervioso?",
+                                options: ["Digestión de alimentos", "Controlar y coordinar todas las funciones del cuerpo", "Producir sangre para las arterias", "Filtrar el agua que bebemos"],
+                                answer: 1,
+                                explanation: "El sistema nervioso coordina y supervisa todas las actividades voluntarias e involuntarias del cuerpo humano."
+                            },
+                            {
+                                id: 2,
+                                type: "mc",
+                                svg: "brain",
+                                question: "¿Qué estructura ósea protege al encéfalo de posibles golpes?",
+                                options: ["Las costillas", "El fémur", "El cráneo", "La columna vertebral"],
+                                answer: 2,
+                                explanation: "El cráneo es la estructura de huesos duros que recubre y protege el encéfalo."
+                            },
+                            {
+                                id: 3,
+                                type: "mc",
+                                svg: "brain",
+                                question: "Si deseas recordar la fecha de tu cumpleaños o resolver un problema de matemáticas, ¿qué parte del encéfalo utilices principalmente?",
+                                options: ["Cerebro", "Cerebelo", "Bulbo raquídeo", "Estómago"],
+                                answer: 0,
+                                explanation: "El cerebro es la parte encargada de los pensamientos, la memoria, el aprendizaje y las emociones."
+                            },
+                            {
+                                id: 4,
+                                type: "mc",
+                                svg: "cerebellum",
+                                question: "Un malabarista o un deportista necesita mantener el equilibrio mientras corre. ¿Qué órgano coordina esta acción?",
+                                options: ["Corazón", "Cerebelo", "Bulbo raquídeo", "Piel"],
+                                answer: 1,
+                                explanation: "El cerebelo se encarga de la coordinación de los movimientos finos y de mantener el equilibrio corporal."
+                            },
+                            {
+                                id: 5,
+                                type: "mc",
+                                svg: "neuron",
+                                question: "¿Cómo se llaman las células especializadas que componen el sistema nervioso?",
+                                options: ["Glóbulos rojos", "Nefronas", "Neuronas", "Bacterias"],
+                                answer: 2,
+                                explanation: "Las neuronas son las células nerviosas responsables de recibir y transmitir impulsos eléctricos."
+                            },
+                            {
+                                id: 6,
+                                type: "tf",
+                                svg: "brain",
+                                question: "El bulbo raquídeo controla acciones involuntarias como los latidos del corazón y la respiración.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. El bulbo raquídeo conecta el encéfalo con la médula y rige funciones automáticas e vitales."
+                            },
+                            {
+                                id: 7,
+                                type: "tf",
+                                svg: "neuron",
+                                question: "Las neuronas se comunican entre sí mediante pequeñas señales e impulsos eléctricos.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. Los mensajes en el cuerpo viajan en forma de impulsos nerviosos bioeléctricos."
+                            },
+                            {
+                                id: 8,
+                                type: "tf",
+                                svg: "brain",
+                                question: "Podemos controlar voluntariamente el latido de nuestro corazón igual que movemos un brazo.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. Los latidos del corazón son involuntarios y están regulados automáticamente por el sistema nervioso autónomo."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Lectura 2: La Red de Comunicación - Central y Periférico",
+                        text: "El Sistema Nervioso Humano se divide en dos partes principales: el Sistema Nervioso Central (SNC) y el Sistema Nervioso Periférico (SNP). El SNC está compuesto por el encéfalo y la médula espinal (un cordón nervioso protegido dentro de la columna vertebral). Por su parte, el SNP consiste en una red de nervios que se extienden desde la médula espinal hacia todos los rincones del cuerpo: brazos, piernas, órganos y piel. Los nervios sensitivos llevan la información desde los sentidos (ojos, piel, oídos, etc.) hacia el SNC, mientras que los nervios motores envían las órdenes de movimiento desde el SNC hacia los músculos.",
+                        questions: [
+                            {
+                                id: 9,
+                                type: "mc",
+                                svg: "spinalCord",
+                                question: "¿Cuáles son las dos partes que forman el Sistema Nervioso Central (SNC)?",
+                                options: ["Encéfalo y médula espinal", "Corazón y pulmones", "Nervios y músculos", "Cerebro y riñones"],
+                                answer: 0,
+                                explanation: "El Sistema Nervioso Central está constituido exclusivamente por el encéfalo y la médula espinal."
+                            },
+                            {
+                                id: 10,
+                                type: "mc",
+                                svg: "spinalCord",
+                                question: "¿Qué estructura protege a la médula espinal a lo largo de nuestro cuerpo?",
+                                options: ["El cráneo", "La columna vertebral", "Las costillas", "La pelvis"],
+                                answer: 1,
+                                explanation: "La columna vertebral es una serie de vértebras óseas que cubren y protegen la médula espinal."
+                            },
+                            {
+                                id: 11,
+                                type: "mc",
+                                svg: "neuron",
+                                question: "¿Qué tipo de nervios transportan información DESDE la piel u ojos HACIA el cerebro?",
+                                options: ["Nervios motores", "Nervios sensitivos", "Uréteres", "Arterias"],
+                                answer: 1,
+                                explanation: "Los nervios sensitivos captan los estímulos de los sentidos y envían la señal al cerebro."
+                            },
+                            {
+                                id: 12,
+                                type: "mc",
+                                svg: "neuron",
+                                question: "Cuando decide levantar un lápiz, ¿qué nervios llevan la orden del cerebro a los músculos de su mano?",
+                                options: ["Nervios sensitivos", "Nervios motores", "Vasos sanguíneos", "Tendones"],
+                                answer: 1,
+                                explanation: "Los nervios motores llevan la orden de respuesta o acción desde el cerebro a los músculos."
+                            },
+                            {
+                                id: 13,
+                                type: "mc",
+                                svg: "spinalCord",
+                                question: "El Sistema Nervioso Periférico (SNP) está formado principalmente por:",
+                                options: ["Solo por el cerebro", "Una extensa red de nervios", "Los riñones y la vejiga", "Los huesos del cuerpo"],
+                                answer: 1,
+                                explanation: "El SNP está compuesto por los nervios que se ramifican por todo el cuerpo humano."
+                            },
+                            {
+                                id: 14,
+                                type: "tf",
+                                svg: "spinalCord",
+                                question: "La médula espinal conecta el encéfalo con el resto del cuerpo a través de los nervios.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. La médula espinal actúa como la autopista principal de transmisión entre el cerebro y los nervios periféricos."
+                            },
+                            {
+                                id: 15,
+                                type: "tf",
+                                svg: "neuron",
+                                question: "Los nervios motores recogen el sabor de los alimentos y lo llevan al cerebro.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. La información sensorial (como el gusto) la transportan los nervios sensitivos, no los motores."
+                            },
+                            {
+                                id: 16,
+                                type: "tf",
+                                svg: "brain",
+                                question: "El Sistema Nervioso Central procesa la información y elabora las respuestas adecuadas.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. El SNC es el centro de comando encargados de interpretar datos y generar respuestas."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Lectura 3: Respuestas Rápidas - Actos Reflejos e Impulsos",
+                        text: "Existen movimientos en nuestro cuerpo que son voluntarios, como patear una pelota o escribir una carta. Sin embargo, hay respuestas automáticas que ocurren a súper velocidad sin que el cerebro lo piense conscientemente: se llaman actos reflejos. Por ejemplo, si accidentalmente tocas algo muy caliente, tu mano se retira al instante. Esto ocurre porque el estímulo viaja por el nervio sensitivo hacia la médula espinal, y esta genera una orden inmediata de retiro antes de que la señal de dolor llegue a ser procesada en el cerebro. Este mecanismo nos protege de graves peligros.",
+                        questions: [
+                            {
+                                id: 17,
+                                type: "mc",
+                                svg: "reflex",
+                                question: "¿Cómo se llama una respuesta rápida y automática ante un peligro imprevisto?",
+                                options: ["Acto voluntario", "Acto reflejo", "Digestión", "Circulación"],
+                                answer: 1,
+                                explanation: "Los actos reflejos son respuestas automáticas e involuntarias ante un estímulo que previenen lesiones."
+                            },
+                            {
+                                id: 18,
+                                type: "mc",
+                                svg: "reflex",
+                                question: "Si te hincas el dedo con un cactus y retiras la mano al instante, ¿quién coordinó esta respuesta rápida?",
+                                options: ["El estómago", "La médula espinal", "El ojo", "El hígado"],
+                                answer: 1,
+                                explanation: "En el arco reflejo, la médula espinal procesa la respuesta inmediata sin esperar la intervención directa del cerebro."
+                            },
+                            {
+                                id: 19,
+                                type: "mc",
+                                svg: "brain",
+                                question: "¿Cuál de las siguientes acciones representa un movimiento VOLUNTARIO?",
+                                options: ["Retirar la mano de una vela encendida", "Pestañear cuando viene polvo hacia el ojo", "Escribir una oración en tu cuaderno", "El latido del corazón"],
+                                answer: 2,
+                                explanation: "Escribir es un movimiento pensado y guiado voluntariamente por nuestro cerebro."
+                            },
+                            {
+                                id: 20,
+                                type: "mc",
+                                svg: "brain",
+                                question: "¿Cuál de las siguientes acciones es un movimiento INVOLUNTARIO?",
+                                options: ["Correr hacia la meta", "La digestión en el estómago", "Saludar a un amigo", "Patear un balón de fútbol"],
+                                answer: 1,
+                                explanation: "La digestión sucede de manera automática e involuntaria sin que tengamos que indicárselo conscientemente."
+                            },
+                            {
+                                id: 21,
+                                type: "mc",
+                                svg: "reflex",
+                                question: "Cuando el médico da un suave golpecito en la rodilla con un martillo de goma y la pierna salta, presenciamos un:",
+                                options: ["Reflejo rotuliano", "Pensamiento abstracto", "Ataque de tos", "Movimiento de masticación"],
+                                answer: 0,
+                                explanation: "Es el clásico reflejo rotuliano coordinado por la médula espinal."
+                            },
+                            {
+                                id: 22,
+                                type: "tf",
+                                svg: "reflex",
+                                question: "Los actos reflejos tardan varios minutos en ocurrir porque el cerebro los analiza con calma.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. Los actos reflejos ocurren en milisegundos para evitar quemaduras, cortes o accidentes."
+                            },
+                            {
+                                id: 23,
+                                type: "tf",
+                                svg: "reflex",
+                                question: "En un acto reflejo, la señal viaja hasta la médula espinal y se produce la respuesta directa.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. Es un circuito llamado arco reflejo conducido en gran medida a nivel medular."
+                            },
+                            {
+                                id: 24,
+                                type: "tf",
+                                svg: "brain",
+                                question: "Caminar, correr y bailar son actividades dirigidas por movimientos involuntarios.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. Caminar y bailar son movimientos voluntarios y aprendidos."
+                            },
+                            {
+                                id: 25,
+                                type: "tf",
+                                svg: "brain",
+                                question: "Dormir lo suficiente y evitar golpes en la cabeza ayudan a cuidar nuestro sistema nervioso.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. El descanso adecuado y la protección física protegen la salud neurológica."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                moduleTitle: "Módulo 2: El Sistema Excretor",
+                readings: [
+                    {
+                        title: "Lectura 4: La Fábrica de Limpieza del Cuerpo - Los Riñones y Nefronas",
+                        text: "El cuerpo humano produce sustancias de desecho como resultado de la nutrición y el trabajo celular. El sistema excretor se encarga de limpiar la sangre y expulsar estas sustancias nocivas al exterior. Los órganos principales de la excreción son los dos riñones, los cuales tienen forma de fríjol y se ubican en la parte posterior del abdomen. Dentro de cada riñón hay más de un millón de microscópicos filtros llamados nefronas. Las nefronas limpian la sangre, retienen las sustancias útiles (como agua limpia y nutrientes) y separan las toxinas mezcladas con agua para formar un líquido amarillento conocido como orina.",
+                        questions: [
+                            {
+                                id: 26,
+                                type: "mc",
+                                svg: "kidney",
+                                question: "¿Cuál es la función principal del sistema excretor?",
+                                options: ["Transportar oxígeno", "Eliminar los desechos y toxinas de la sangre", "Digerir carnes y verduras", "Producir movimiento en los huesos"],
+                                answer: 1,
+                                explanation: "El sistema excretor filtra las impurezas de la sangre producidas por el metabolismo celular."
+                            },
+                            {
+                                id: 27,
+                                type: "mc",
+                                svg: "kidney",
+                                question: "¿Qué forma característica tienen los riñones en el cuerpo humano?",
+                                options: ["Forma de estrella", "Forma de fríjol o habichuela", "Forma de disco plano", "Forma de cubo"],
+                                answer: 1,
+                                explanation: "Anatómicamente, los riñones poseen una forma muy parecida a la de un grano de fríjol."
+                            },
+                            {
+                                id: 28,
+                                type: "mc",
+                                svg: "nephron",
+                                question: "¿Cómo se llaman las unidades microscópicas dentro del riñón que se encargan de filtrar la sangre?",
+                                options: ["Neuronas", "Nefronas", "Alvéolos", "Plaquetas"],
+                                answer: 1,
+                                explanation: "Las nefronas son los diminutos filtros funcionales que componen la estructura interna de los riñones."
+                            },
+                            {
+                                id: 29,
+                                type: "mc",
+                                svg: "kidney",
+                                question: "¿Qué líquido de desecho producen los riñones al filtrar la sangre?",
+                                options: ["Bilis", "Orina", "Saliva", "Jugo gástrico"],
+                                answer: 1,
+                                explanation: "La mezcla de agua, urea y toxinas filtradas en el riñón se denomina orina."
+                            },
+                            {
+                                id: 30,
+                                type: "mc",
+                                svg: "kidney",
+                                question: "¿Cuántos riñones tiene normalmente un ser humano sano?",
+                                options: ["1", "2", "3", "4"],
+                                answer: 1,
+                                explanation: "Los seres humanos cuentan con un par de riñones ubicados a cada lado de la columna."
+                            },
+                            {
+                                id: 31,
+                                type: "tf",
+                                svg: "kidney",
+                                question: "Si las sustancias de desecho no se eliminaran de la sangre, el cuerpo se enfermaría gravemente.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. La acumulación de sustancias tóxicas en la sangre puede intoxicar gravemente nuestros órganos."
+                            },
+                            {
+                                id: 32,
+                                type: "tf",
+                                svg: "nephron",
+                                question: "Las nefronas eliminan todo el agua del cuerpo sin devolver nada a la sangre.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. Las nefronas reabsorben la mayor parte del agua limpia y nutrientes para conservar la hidratación corporal."
+                            },
+                            {
+                                id: 33,
+                                type: "tf",
+                                svg: "kidney",
+                                question: "La orina se compone principalmente de agua y sustancias de desecho disueltas.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. Un 95% de la orina es agua y el restante 5% son urea y sales sobrantes."
+                            },
+                            {
+                                id: 34,
+                                type: "tf",
+                                svg: "kidney",
+                                question: "Los riñones se encuentran localizados en la parte anterior del pecho, cerca de los pulmones.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. Los riñones se ubican en la parte posterior del abdomen, a la altura de la cintura."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Lectura 5: El Camino de los Desechos - Uréteres, Vejiga y Uretra",
+                        text: "Una vez que la orina es producida en los riñones, debe viajar al exterior del cuerpo siguiendo una vía urinaria. Primero, baja a través de dos delgados tubos musculares llamadas uréteres. Estos tubos conectan cada riñón con un órgano en forma de bolsa elástica: la vejiga urinaria. La vejiga funciona como un depósito o almacén donde se acumula la orina. Cuando la vejiga está llena, los nervios envían una señal al cerebro indicando que sentimos ganas de orinar. Finalmente, la orina sale del cuerpo a través de un único conducto llamado uretra.",
+                        questions: [
+                            {
+                                id: 35,
+                                type: "mc",
+                                svg: "bladder",
+                                question: "¿Cuáles son los conductos que transportan la orina desde los riñones hacia la vejiga?",
+                                options: ["Uréteres", "Uretra", "Arterias coronarias", "Bronquios"],
+                                answer: 0,
+                                explanation: "Los uréteres son los dos tubitos que bajan la orina hasta la vejiga."
+                            },
+                            {
+                                id: 36,
+                                type: "mc",
+                                svg: "bladder",
+                                question: "¿Qué órgano muscular elástico se encarga de almacenar la orina temporalmente antes de expulsarla?",
+                                options: ["El corazón", "La vejiga", "El estómago", "El intestino grueso"],
+                                answer: 1,
+                                explanation: "La vejiga actúa como una bolsa almacén flexible hasta el momento de miccionar."
+                            },
+                            {
+                                id: 37,
+                                type: "mc",
+                                svg: "bladder",
+                                question: "¿Cuál es el conducto por donde la orina sale definitivamente hacia el exterior del cuerpo?",
+                                options: ["El uréter", "La uretra", "La tráquea", "El esófago"],
+                                answer: 1,
+                                explanation: "La uretra es el conducto de salida final del sistema urinario."
+                            },
+                            {
+                                id: 38,
+                                type: "mc",
+                                svg: "bladder",
+                                question: "Ordena el recorrido correcto de la orina desde su formación:",
+                                options: [
+                                    "Vejiga -> Uréteres -> Riñones -> Uretra",
+                                    "Riñones -> Uréteres -> Vejiga -> Uretra",
+                                    "Uretra -> Vejiga -> Uréteres -> Riñones",
+                                    "Riñones -> Uretra -> Vejiga -> Uréteres"
+                                ],
+                                answer: 1,
+                                explanation: "La secuencia lógica es: Riñones (filtran) -> Uréteres (transportan) -> Vejiga (almacena) -> Uretra (expulsa)."
+                            },
+                            {
+                                id: 39,
+                                type: "mc",
+                                svg: "bladder",
+                                question: "¿Por qué la vejiga puede agrandarse a medida que se llena de orina?",
+                                options: ["Porque tiene paredes rígidas de hueso", "Porque es un órgano elástico y muscular", "Porque se llena de aire", "Porque se rompe fácilmente"],
+                                answer: 1,
+                                explanation: "Las paredes musculares de la vejiga poseen capacidad de distensión elástica."
+                            },
+                            {
+                                id: 40,
+                                type: "tf",
+                                svg: "bladder",
+                                question: "Existen dos urethras y un solo uréter en el cuerpo humano.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. Es al contrario: hay dos uréteres (uno de cada riñón) y una sola uretra."
+                            },
+                            {
+                                id: 41,
+                                type: "tf",
+                                svg: "bladder",
+                                question: "Cuando la vejiga se llena, transmite información al sistema nervioso para avisarnos que debemos ir al baño.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. Receptores de presión en la vejiga envían la alerta al cerebro."
+                            },
+                            {
+                                id: 42,
+                                type: "tf",
+                                svg: "bladder",
+                                question: "Aguantarse la gana de orinar durante muchas horas es un hábito muy saludable para la vejiga.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. Retener la orina por mucho tiempo favorece infecciones y debilita la vejiga."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Lectura 6: Otros Órganos de Excreción y Cuidado de los Riñones",
+                        text: "Aunque los riñones son los principales órganos excretores, no son los únicos. La piel ayuda en la eliminación de desechos a través de las glándulas sudoríparas, las cuales producen el sudor. El sudor contiene agua, sales minerales y pequeñas sustancias tóxicas; además, ayuda a regular la temperatura de nuestro cuerpo enfriándonos cuando hace calor o hacemos ejercicio. Por otro lado, las toxinas gaseosas (dióxido de carbono) son eliminadas por los pulmones al espirar. Para cuidar nuestros riñones y todo el sistema excretor es indispensable tomar abundante agua potable limpia, evitar el consumo excesivo de sal, no aguantar las ganas de ir al baño y mantener una correcta higiene corporal.",
+                        questions: [
+                            {
+                                id: 43,
+                                type: "mc",
+                                svg: "skin",
+                                question: "¿Qué estructura de la piel produce el sudor para ayudar a excretar desechos?",
+                                options: ["Glándulas sudoríparas", "Foliculos capilares", "Uñas", "Poros digestivos"],
+                                answer: 0,
+                                explanation: "Las glándulas sudoríparas son las encargadas de fabricar y secretar el sudor."
+                            },
+                            {
+                                id: 44,
+                                type: "mc",
+                                svg: "skin",
+                                question: "Además de eliminar desechos, ¿qué otra función vital cumple el sudor en nuestro cuerpo?",
+                                options: ["Regular la temperatura corporal produciendo enfriamiento", "Ayudar a ver mejor en la oscuridad", "Procesar los azúcares", "Aumentar la fuerza muscular"],
+                                answer: 0,
+                                explanation: "El sudor al evaporarse en la piel ayuda a refrescar el cuerpo regulando la temperatura."
+                            },
+                            {
+                                id: 45,
+                                type: "mc",
+                                svg: "hygiene",
+                                question: "¿Cuál de las siguientes costumbres es fundamental para proteger el correcto funcionamiento de los riñones?",
+                                options: ["Consumir mucha sal en las comidas", "Beber suficiente agua limpia durante el día", "Tomar refrescos con mucho azúcar siempre", "Evitar hacer ejercicio físico"],
+                                answer: 1,
+                                explanation: "El agua facilita la filtración eficiente de sustancias de desecho en los riñones."
+                            },
+                            {
+                                id: 46,
+                                type: "mc",
+                                svg: "skin",
+                                question: "¿Qué sustancia gaseosa tóxica expulsan los pulmones como parte de la excreción de desechos?",
+                                options: ["Oxígeno", "Dióxido de carbono (CO2)", "Nitrógeno puro", "Hidrógeno"],
+                                answer: 1,
+                                explanation: "Los pulmones excretan el gas de desecho del metabolismo celular: el dióxido de carbono."
+                            },
+                            {
+                                id: 47,
+                                type: "tf",
+                                svg: "skin",
+                                question: "El sudor se compone únicamente de agua pura sin ningún tipo de sales minerales.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 1,
+                                explanation: "Falso. El sudor contiene agua, sales y pequeñas proporciones de desechos disueltos."
+                            },
+                            {
+                                id: 48,
+                                type: "tf",
+                                svg: "hygiene",
+                                question: "Comer alimentos con demasiada sal obliga a los riñones a trabajar de más y puede perjudicar la salud.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. El exceso de sodio/sal altera el balance hídrico sobrecargando los riñones."
+                            },
+                            {
+                                id: 49,
+                                type: "tf",
+                                svg: "hygiene",
+                                question: "Bañarse diariamente y lavar nuestra piel nos ayuda a mantener despejados los poros de las glándulas sudoríparas.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. La higiene adecuada elimina impurezas acumuladas sobre la dermis y los poros."
+                            },
+                            {
+                                id: 50,
+                                type: "tf",
+                                svg: "hygiene",
+                                question: "Los riñones, la piel y los pulmones colaboran juntos para librar al organismo de sustancias nocivas.",
+                                options: ["Verdadero", "Falso"],
+                                answer: 0,
+                                explanation: "Verdadero. Todos forman parte de la red integrada de excreción y mantenimiento de la salud corporal."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Render Questions Function
+        function buildExamUI() {
+            const container = document.getElementById('examContainer');
+            container.innerHTML = '';
+
+            modulesData.forEach((mod) => {
+                const moduleHeader = document.createElement('div');
+                moduleHeader.className = "border-b-2 border-sky-500 pb-2 mb-6 mt-8";
+                moduleHeader.innerHTML = `<h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                    <span class="w-3 h-8 bg-sky-500 rounded-full inline-block"></span>
+                    ${mod.moduleTitle}
+                </h2>`;
+                container.appendChild(moduleHeader);
+
+                mod.readings.forEach((reading) => {
+                    // Reading Card
+                    const readingCard = document.createElement('article');
+                    readingCard.className = "bg-sky-50/80 border border-sky-200 rounded-2xl p-6 shadow-sm mb-8";
+                    readingCard.innerHTML = `
+                        <h3 class="text-xl font-bold text-sky-900 mb-3 flex items-center gap-2">
+                            <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            ${reading.title}
+                        </h3>
+                        <p class="text-slate-700 leading-relaxed text-sm md:text-base font-medium">${reading.text}</p>
+                    `;
+                    container.appendChild(readingCard);
+
+                    // Questions Loop
+                    reading.questions.forEach((q) => {
+                        const qCard = document.createElement('div');
+                        qCard.id = `qCard-${q.id}`;
+                        qCard.className = "bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition mb-6";
+                        
+                        let optionsHTML = '';
+                        q.options.forEach((opt, optIndex) => {
+                            const optionLetter = String.fromCharCode(65 + optIndex);
+                            const labelText = q.type === 'tf' ? opt : `${optionLetter}. ${opt}`;
+                            optionsHTML += `
+                                <div class="flex items-center mb-2.5">
+                                    <input type="radio" id="q${q.id}_opt${optIndex}" name="q${q.id}" value="${optIndex}" onchange="updateProgress()" class="custom-radio hidden">
+                                    <label for="q${q.id}_opt${optIndex}" class="w-full text-slate-700 text-sm md:text-base font-medium py-3 px-4 rounded-xl border border-slate-200 hover:border-sky-300 hover:bg-sky-50/50 cursor-pointer transition flex items-center justify-between">
+                                        <span>${labelText}</span>
+                                        <span class="w-5 h-5 border-2 border-slate-300 rounded-full flex items-center justify-center text-transparent text-xs font-bold check-mark">✓</span>
+                                    </label>
+                                </div>
+                            `;
+                        });
+
+                        qCard.innerHTML = `
+                            <div class="flex flex-col md:flex-row gap-6 items-start">
+                                <div class="bg-sky-50 p-3 rounded-2xl border border-sky-100 flex items-center justify-center shrink-0 self-center md:self-start">
+                                    ${getSVG(q.svg)}
+                                </div>
+                                <div class="grow w-full">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2.5 py-1 rounded-md">Pregunta ${q.id}</span>
+                                        <span class="text-xs font-semibold text-slate-400 uppercase">${q.type === 'tf' ? 'Falso o Verdadero' : 'Opción Múltiple'}</span>
+                                    </div>
+                                    <h4 class="text-slate-900 font-bold text-base md:text-lg mb-4">${q.question}</h4>
+                                    <div class="space-y-2">
+                                        ${optionsHTML}
+                                    </div>
+                                    <div id="explanation-${q.id}" class="hidden mt-4 p-3.5 rounded-xl text-xs md:text-sm font-medium"></div>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(qCard);
+                    });
+                });
+            });
+        }
+
+        // Update Answered Questions Progress
+        function updateProgress() {
+            let answered = 0;
+            for (let i = 1; i <= 50; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) answered++;
+            }
+            document.getElementById('answeredCount').textContent = answered;
+            const percent = (answered / 50) * 100;
+            document.getElementById('progressBar').style.width = `${percent}%`;
+        }
+
+        // Calculate Score & Show Feedback
+        function gradeExam() {
+            let scoreCount = 0;
+            let allQuestions = [];
+
+            // Aggregate all questions in single array
+            modulesData.forEach(mod => {
+                mod.readings.forEach(rd => {
+                    rd.questions.forEach(q => {
+                        allQuestions.push(q);
+                    });
+                });
+            });
+
+            allQuestions.forEach(q => {
+                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const qCard = document.getElementById(`qCard-${q.id}`);
+                const expDiv = document.getElementById(`explanation-${q.id}`);
+
+                expDiv.classList.remove('hidden');
+
+                if (selected) {
+                    const userVal = parseInt(selected.value);
+                    if (userVal === q.answer) {
+                        scoreCount++;
+                        qCard.classList.remove('border-slate-200');
+                        qCard.classList.add('border-emerald-500', 'bg-emerald-50/10');
+                        expDiv.className = "mt-4 p-3.5 rounded-xl text-xs md:text-sm font-medium bg-emerald-100 text-emerald-900 border border-emerald-200";
+                        expDiv.innerHTML = `<strong>¡Correcto!</strong> ${q.explanation}`;
+                    } else {
+                        qCard.classList.remove('border-slate-200');
+                        qCard.classList.add('border-rose-400', 'bg-rose-50/10');
+                        expDiv.className = "mt-4 p-3.5 rounded-xl text-xs md:text-sm font-medium bg-rose-100 text-rose-900 border border-rose-200";
+                        expDiv.innerHTML = `<strong>Incorrecto.</strong> ${q.explanation}`;
+                    }
+                } else {
+                    qCard.classList.remove('border-slate-200');
+                    qCard.classList.add('border-amber-400', 'bg-amber-50/10');
+                    expDiv.className = "mt-4 p-3.5 rounded-xl text-xs md:text-sm font-medium bg-amber-100 text-amber-900 border border-amber-200";
+                    expDiv.innerHTML = `<strong>Sin Responder.</strong> ${q.explanation}`;
+                }
+            });
+
+            // Calculate Grade Scale 1.0 to 5.0
+            // Formula: 1.0 + (4.0 * (scoreCount / 50))
+            const grade = (1.0 + (4.0 * (scoreCount / 50))).toFixed(1);
+            const percentage = ((scoreCount / 50) * 100).toFixed(0);
+
+            // Display Results Summary Card
+            const name = document.getElementById('studentName').value || 'Estudiante';
+            const group = document.getElementById('studentGroup').value || '5° Grado';
+
+            document.getElementById('resultStudentInfo').textContent = `Estudiante: ${name} | Grado: ${group}`;
+            document.getElementById('finalScore').textContent = grade;
+            document.getElementById('correctCount').textContent = scoreCount;
+            document.getElementById('percentageScore').textContent = `${percentage}%`;
+
+            const feedbackMsg = document.getElementById('feedbackMessage');
+            if (parseFloat(grade) >= 4.5) {
+                feedbackMsg.textContent = "🌟 ¡Excelente desempeño! Demostraste un dominio sobresaliente del Sistema Nervioso y Excretor.";
+                feedbackMsg.className = "text-lg font-bold text-emerald-700 mb-6";
+            } else if (parseFloat(grade) >= 3.5) {
+                feedbackMsg.textContent = "👍 ¡Buen trabajo! Tienes comprensiones sólidas, aunque puedes repasar algunos detalles.";
+                feedbackMsg.className = "text-lg font-bold text-sky-700 mb-6";
+            } else {
+                feedbackMsg.textContent = "📚 ¡Sigue practicando! Te recomendamos releer los textos con atención para reforzar tus aprendizajes.";
+                feedbackMsg.className = "text-lg font-bold text-amber-700 mb-6";
+            }
+
+            const resultsCard = document.getElementById('resultsCard');
+            resultsCard.classList.remove('hidden');
+            resultsCard.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Reset Exam Function
+        function resetExam() {
+            window.location.reload();
+        }
+
+        // Initialize exam UI on load
+        window.onload = function() {
+            buildExamUI();
+        };
+    </script>
+</body>
+</html>
